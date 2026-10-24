@@ -32,6 +32,8 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 **3. Source:** https://aws.amazon.com/braket/. This is AWS's official page for its existing managed quantum service. It doesn't confirm or deny the rumour, but it shows how AWS actually delivers quantum computing. To check for a re:Invent 2025 announcement, look at the AWS News Blog (https://aws.amazon.com/blogs/aws/) and the "What's New" feed (https://aws.amazon.com/new/).
 ```
 
+**What the UNVERIFIED verdict rests on:** only the model's existing knowledge and its own reasoning that AWS Regions are geographic footprints, not technology-specific offerings. The script gives the model no web access, so it checked no live source, and none of the aws.amazon.com pages it named confirms or denies the rumour.
+
 **Did it name an aws.amazon.com page?** Yes, it named https://aws.amazon.com/braket/ as background on AWS's existing quantum service and two AWS news feeds as places to check, but none of them as proof that C-02 is a real launch.
 
 **Public LangSmith trace:** https://smith.langchain.com/public/4a64267d-be97-43ea-9857-9f407de8deab/r

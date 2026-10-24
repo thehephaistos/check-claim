@@ -1,4 +1,4 @@
-"""Ask Claude to fact-check one rumour and print its answer.
+"""Ask Claude (through OpenRouter) to fact-check one rumour and print its answer.
 
 Usage: python check_claim.py [CLAIM_ID]   (default: C-02)
 
@@ -8,23 +8,27 @@ import json
 import os
 import sys
 
-from anthropic import Anthropic
 from dotenv import load_dotenv
 from langsmith import traceable
-from langsmith.wrappers import wrap_anthropic
+from langsmith.wrappers import wrap_openai
+from openai import OpenAI
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 # Every setting comes from .env.
-ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
-MODEL_ID = os.environ["ANTHROPIC_MODEL"]
+OPENROUTER_API_KEY = os.environ["OPENROUTER_API_KEY"]
+MODEL_ID = os.environ["OPENROUTER_MODEL"]  # an OpenRouter id, e.g. anthropic/...
+if not MODEL_ID.startswith("anthropic/"):
+    sys.exit(f"OPENROUTER_MODEL must be an anthropic/ id, got {MODEL_ID!r}")
 # LangSmith reads LANGSMITH_API_KEY, LANGSMITH_TRACING and LANGSMITH_PROJECT
 # from the environment itself; we only check they are present.
 for name in ("LANGSMITH_API_KEY", "LANGSMITH_PROJECT"):
     if not os.environ.get(name):
         sys.exit(f"Missing {name} in .env")
 
-client = wrap_anthropic(Anthropic(api_key=ANTHROPIC_API_KEY))
+client = wrap_openai(
+    OpenAI(base_url="https://openrouter.ai/api/v1", api_key=OPENROUTER_API_KEY)
+)
 
 PROMPT = """You are a careful fact-checker. Evaluate this rumour:
 
@@ -37,7 +41,7 @@ Reply with:
 
 
 def load_claim(claim_id):
-    with open(os.path.join(os.path.dirname(__file__), "claims.json")) as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "claims.json")) as f:
         claims = json.load(f)
     return claims[claim_id]
 
@@ -45,12 +49,12 @@ def load_claim(claim_id):
 @traceable(name="check_claim")
 def check_claim(claim_id):
     claim = load_claim(claim_id)
-    response = client.messages.create(
+    response = client.chat.completions.create(
         model=MODEL_ID,
         max_tokens=1024,
         messages=[{"role": "user", "content": PROMPT.format(claim=claim)}],
     )
-    return "".join(block.text for block in response.content if block.type == "text")
+    return response.choices[0].message.content
 
 
 if __name__ == "__main__":

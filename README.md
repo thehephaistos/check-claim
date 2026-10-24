@@ -1,6 +1,6 @@
 # check_claim
 
-Asks Claude to fact-check one rumour (C-02) and traces the call in LangSmith.
+Asks Claude, through OpenRouter, to fact-check one rumour (C-02) and traces the call in LangSmith.
 
 ## Setup
 
@@ -14,18 +14,20 @@ All keys and the model id are read from `.env`, which is git-ignored.
 
 ## Result
 
-**Model id:** `claude-opus-5-5` (called directly through the Anthropic API, not OpenRouter, so there is no `anthropic/` prefix)
+**Model id:** `anthropic/claude-opus-5.5` (OpenRouter)
 
 **Claim C-02:** AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.
 
-**Answer for C-02:** Not available yet. `python check_claim.py` ran on 2026-10-24, but the Anthropic API rejected the call before the model answered:
+**Answer for C-02** (printed by `python check_claim.py` on 2026-10-24):
 
 ```
-anthropic.BadRequestError: Error code: 400 - Your credit balance is too low to access the Anthropic API.
+1. **Verdict:** UNVERIFIED
+
+2. **Explanation:** I'm not aware of any official AWS announcement of a dedicated "quantum computing Region," and the premise is doubtful because AWS Regions are geographic infrastructure footprints rather than technology-specific offerings. AWS already offers managed quantum computing through Amazon Braket, which has been generally available since 2020 and accessible in us-east-1, so check the official re:Invent 2025 announcements before treating this rumour as true.
+
+3. **Source:** https://aws.amazon.com/braket/
 ```
 
-The answer will go here once credits are added and the script is run again.
+**Did it name an aws.amazon.com page?** Yes: it named https://aws.amazon.com/braket/, the Amazon Braket product page, which covers AWS's existing quantum service but does not confirm a quantum Region.
 
-**Did it name an aws.amazon.com page?** Not yet known, because the model has not answered.
-
-**Public LangSmith trace:** https://smith.langchain.com/public/d63eeef5-e4a7-42a0-8bf3-808fe697a586/r (the C-02 run, showing the credit error above)
+**Public LangSmith trace:** https://smith.langchain.com/public/259cb3bd-b735-4be8-940c-bc33a569af6c/r

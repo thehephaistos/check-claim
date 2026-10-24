@@ -1,7 +1,0 @@
-{
-  "C-01": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
-  "C-02": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
-  "C-03": "Amazon EC2 P6e-GB200 UltraServers accelerated by NVIDIA Grace Blackwell are now available in all commercial AWS Regions.",
-  "C-04": "Amazon Aurora DSQL is now generally available as a serverless distributed SQL database with active-active high availability.",
-  "C-05": "Amazon S3 Vectors is now GA and lets you store and query vector embeddings natively in S3 at massive scale."
-}

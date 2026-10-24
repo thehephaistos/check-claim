@@ -1,10 +1,11 @@
 """Ask Claude (through OpenRouter) to fact-check one rumour and print its answer.
 
-Usage: python check_claim.py [CLAIM_ID]   (default: C-02)
+Usage: python check_claim.py [CANDIDATE_ID]   (default: C-02)
 
+The rumour is read from data/aws_reinvent_candidate_items.csv.
 All keys and the model id are read from .env -- nothing is typed in here.
 """
-import json
+import csv
 import os
 import sys
 
@@ -40,25 +41,36 @@ Reply with:
 3. The single best official source URL that supports your verdict, or "none" if you are not sure one exists. Do not invent URLs."""
 
 
-def load_claim(claim_id):
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "claims.json")) as f:
-        claims = json.load(f)
-    return claims[claim_id]
+CANDIDATES_CSV = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "data", "aws_reinvent_candidate_items.csv"
+)
 
 
+def load_candidate(candidate_id):
+    """Return the full CSV row for one candidate_id."""
+    with open(CANDIDATES_CSV, encoding="utf-8-sig", newline="") as f:
+        for row in csv.DictReader(f):
+            if row["candidate_id"] == candidate_id:
+                return row
+    sys.exit(f"{candidate_id} not found in {CANDIDATES_CSV}")
+
+
+# The whole CSV row is the traced input, so the trace shows exactly which
+# candidate row the model was asked about.
 @traceable(name="check_claim")
-def check_claim(claim_id):
-    claim = load_claim(claim_id)
+def check_claim(candidate):
     response = client.chat.completions.create(
         model=MODEL_ID,
         max_tokens=1024,
-        messages=[{"role": "user", "content": PROMPT.format(claim=claim)}],
+        messages=[{"role": "user", "content": PROMPT.format(claim=candidate["claim_text"])}],
     )
     return response.choices[0].message.content
 
 
 if __name__ == "__main__":
-    claim_id = sys.argv[1] if len(sys.argv) > 1 else "C-02"
+    candidate_id = sys.argv[1] if len(sys.argv) > 1 else "C-02"
+    candidate = load_candidate(candidate_id)
     print(f"Model: {MODEL_ID}")
-    print(f"Claim {claim_id}: {load_claim(claim_id)}\n")
-    print(check_claim(claim_id))
+    print(f"Source: data/aws_reinvent_candidate_items.csv, row {candidate_id}")
+    print(f"Claim: {candidate['claim_text']}\n")
+    print(check_claim(candidate))

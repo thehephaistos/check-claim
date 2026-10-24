@@ -28,6 +28,6 @@ All keys and the model id are read from `.env`, which is git-ignored.
 3. **Source:** https://aws.amazon.com/braket/
 ```
 
-**Did it name an aws.amazon.com page?** Yes: it named https://aws.amazon.com/braket/, the Amazon Braket product page, which covers AWS's existing quantum service but does not confirm a quantum Region.
+**Did it name an aws.amazon.com page?** Yes, it named https://aws.amazon.com/braket/, but only as background on AWS's existing quantum service, not as proof that C-02 is a real launch.
 
 **Public LangSmith trace:** https://smith.langchain.com/public/259cb3bd-b735-4be8-940c-bc33a569af6c/r

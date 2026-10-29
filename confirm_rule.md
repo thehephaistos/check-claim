@@ -1,44 +1,46 @@
-# Confirm rule
+# Rule card: AWS launch claim check
 
-A candidate claim from `data/aws_reinvent_candidate_items.csv` is CONFIRMED only when the fact-checker answers YES to all three checks below. Each check is answered on its own, as YES or NO. The sources are the official AWS pages in `data/aws_official_source_snapshot.json` (captured 3 November 2025).
+Our agents check launch claims such as "Amazon Bedrock AgentCore is now generally available". Before a claim is reported as confirmed, the fact-checker compares it with the official AWS pages in `data/aws_official_source_snapshot.json` (captured 3 November 2025). The claims come from `data/aws_reinvent_candidate_items.csv`.
 
-## The three checks
+## The rule: a claim is confirmed only if every answer is yes
 
-```text
-Check 1. Source: Is the source an aws.amazon.com page?
-Check 2. Quote: Is every quoted sentence copied word for word from that page?
-Check 3. Facts: Is every fact in the claim backed by a quoted sentence?
-```
+1. Source: Is the source an aws.amazon.com page?
+2. Quote: Is every quoted sentence copied word for word from that page?
+3. Facts: Is every fact in the claim backed by a quoted sentence?
 
-Any NO means the claim is REJECTED, with a one-line reason why.
+Each check is answered on its own, as yes or no. If any answer is no, the claim is rejected, with one line saying which check failed and why. If the fact-checker is unsure, the answer is no.
 
 ## Who does what
 
-| Role | Job |
-|---|---|
-| Lead agent | Hands out claims: reads each candidate row from `data/aws_reinvent_candidate_items.csv` and gives its claim text, word for word, to the researcher. |
-| Researcher | Finds a page: searches the snapshot for the claim's service and returns the aws.amazon.com page URL with its sentences copied word for word. |
-| Fact-checker | Answers the checks: answers checks 1, 2 and 3 as YES or NO, using only the researcher's page and quotes, and gives the verdict, with a one-line reason if REJECTED. |
+| Agent | Job | Gets | Gives back |
+|---|---|---|---|
+| Lead agent | Hands out claims | A candidate row from `data/aws_reinvent_candidate_items.csv` | The claim text, word for word, to the researcher |
+| Researcher | Finds a page | The claim text | The aws.amazon.com page URL with its sentences copied word for word, or "no page found" |
+| Fact-checker | Answers the checks | The claim, the page URL and the quoted sentences | Confirmed or rejected, with a one-line reason |
 
-## Example: C-01
+## Worked example: C-01
 
-**Claim:** Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.
+Claim: "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale."
 
-https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/ (snapshot page AWS-SRC-019, published 2025-10-13)
+Page the researcher found: https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/ (snapshot page AWS-SRC-019, published 2025-10-13)
 
 > Amazon Bedrock AgentCore is now generally available.
 >
 > AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model.
 
-- Check 1, source: YES. The page is on aws.amazon.com.
-- Check 2, quote: YES. Both sentences are copied word for word from the page.
-- Check 3, facts: YES. "Generally available" is backed by the first sentence; "building and running AI agents at scale" is backed by "build, deploy and operate AI agents securely at scale".
+| Check | Answer |
+|---|---|
+| 1. Source | Yes. The page is on aws.amazon.com. |
+| 2. Quote | Yes. Both sentences are copied word for word from the page. |
+| 3. Facts | Yes. "Now generally available" is backed by the first sentence; "building and running AI agents at scale" is backed by "build, deploy and operate AI agents securely at scale". |
 
-**Verdict: CONFIRMED.** Reason: an aws.amazon.com What's New page states, word for word, that Amazon Bedrock AgentCore is generally available for building and operating AI agents at scale.
+Verdict: confirmed. Reason: "An aws.amazon.com What's New page states word for word that Amazon Bedrock AgentCore is generally available for building and operating AI agents at scale."
 
-## Example: C-05
+## Worked example: C-05
 
-**Claim:** Amazon S3 Vectors is now GA and lets you store and query vector embeddings natively in S3 at massive scale.
+Claim: "Amazon S3 Vectors is now GA and lets you store and query vector embeddings natively in S3 at massive scale."
+
+Pages the researcher found:
 
 https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-s3-vectors-preview-native-support-storing-querying-vectors/ (snapshot page AWS-SRC-014, published 2025-07-15)
 
@@ -50,8 +52,10 @@ https://aws.amazon.com/s3/features/vectors/ (snapshot page AWS-SRC-015, publishe
 
 > Amazon S3 Vectors is in preview and is available in five AWS Regions.
 
-- Check 1, source: YES. Both pages are on aws.amazon.com.
-- Check 2, quote: YES. All three sentences are copied word for word from their pages.
-- Check 3, facts: NO. The claim says "now GA", but both pages say S3 Vectors is in preview, and a preview does not back up generally available.
+| Check | Answer |
+|---|---|
+| 1. Source | Yes. Both pages are on aws.amazon.com. |
+| 2. Quote | Yes. All three sentences are copied word for word from their pages. |
+| 3. Facts | No. The claim says "now GA", but both pages say S3 Vectors is in preview, and a preview does not back up generally available. |
 
-**Verdict: REJECTED.** Reason: check 3 is NO, because the AWS pages say S3 Vectors is in preview, which does not back up the claim that it is generally available.
+Verdict: rejected. Reason: "Check 3 failed: the AWS pages say S3 Vectors is in preview, which does not back up the claim that it is generally available."

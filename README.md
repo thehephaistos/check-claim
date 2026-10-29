@@ -37,3 +37,7 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 **Did it name an aws.amazon.com page?** Yes, it named https://aws.amazon.com/braket/ as background on AWS's existing quantum service and two AWS news feeds as places to check, but none of them as proof that C-02 is a real launch.
 
 **Public LangSmith trace:** https://smith.langchain.com/public/4a64267d-be97-43ea-9857-9f407de8deab/r
+
+## Next step: what "confirmed" means
+
+[CONFIRMED.md](CONFIRMED.md) sets the three YES/NO questions the fact checker answers before a candidate counts as CONFIRMED, and what the lead agent, researcher and fact checker each do.

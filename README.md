@@ -40,4 +40,4 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 
 ## Next step: what "confirmed" means
 
-[CONFIRMED.md](CONFIRMED.md) sets the three YES/NO questions the fact checker answers before a candidate counts as CONFIRMED, and what the lead agent, researcher and fact checker each do.
+[confirm_rule.md](confirm_rule.md) sets the three YES/NO checks (source, quote, facts) a claim must pass to be CONFIRMED, what the lead agent, researcher and fact-checker each do, and worked examples for C-01 (CONFIRMED) and C-05 (REJECTED) quoted word for word from `data/aws_official_source_snapshot.json`, the official AWS source snapshot captured 3 November 2025.

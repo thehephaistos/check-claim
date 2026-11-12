@@ -41,3 +41,13 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 ## Next step: what "confirmed" means
 
 [confirm_rule.md](confirm_rule.md) sets the three YES/NO checks (source, quote, facts) a claim must pass to be CONFIRMED, what the lead agent, researcher and fact-checker each do, and worked examples for C-01 (CONFIRMED) and C-05 (REJECTED) quoted word for word from `data/aws_official_source_snapshot.json`, the official AWS source snapshot captured 3 November 2025.
+
+## Stage 3: agent team pipeline
+
+`pipeline.py` is a LangGraph graph with exactly three nodes that run in order: **lead** (reads the candidate row from the CSV and hands out the claim), **researcher** (finds one page in `data/aws_official_source_snapshot.json` and copies its sentences word for word, or returns "no match"), and **fact_checker** (reads its rule from `confirm_rule.md` at run time and answers the three checks). Code, not the model, checks that every quote appears word for word in the page's `body_text`.
+
+```bash
+.venv/bin/python pipeline.py        # runs all five candidates
+```
+
+[results.md](results.md) has one row per candidate with its checks, verdict, reason, public LangSmith trace and the log of that run (`logs/C-0X.json`, which records what each node got and gave back). Model: `anthropic/claude-haiku-5.5` via OpenRouter.

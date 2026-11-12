@@ -1,3 +1,4 @@
 openai
 langsmith
+langgraph
 python-dotenv

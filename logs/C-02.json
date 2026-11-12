@@ -1,0 +1,139 @@
+{
+  "candidate_id": "C-02",
+  "model": "anthropic/claude-haiku-5.5",
+  "run_id": "5360e3d0-ffea-41c9-af9b-165735e7767a",
+  "started_at": "2026-11-12T14:53:23.229168+00:00",
+  "trace_url": "https://smith.langchain.com/public/7afe3db8-9f9e-4299-9ec9-7c46b37c72f4/r",
+  "claim": {
+    "candidate_id": "C-02",
+    "claim_text": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+    "claimed_service": "AWS (quantum Region)"
+  },
+  "evidence": {
+    "page_id": "AWS-SRC-021",
+    "url": "https://aws.amazon.com/blogs/aws/amazon-braket-program-sets/",
+    "captured_at": "2025-11-03T06:16:43Z",
+    "quotes": [
+      "Amazon Braket, the quantum computing service from AWS, now supports program sets.",
+      "Program sets are available on supported quantum processing units in all AWS Regions where Amazon Braket is available."
+    ],
+    "why_this_page": "Closest snapshot page on a quantum service, but it only covers Braket program sets and says nothing about a managed quantum computing Region, us-east-1, or re:Invent 2025, so the claim is unsupported by this page."
+  },
+  "quote_check": {
+    "url_matches_page_id": true,
+    "captured_at_matches": true,
+    "quotes": [
+      {
+        "quote": "Amazon Braket, the quantum computing service from AWS, now supports program sets.",
+        "word_for_word": true
+      },
+      {
+        "quote": "Program sets are available on supported quantum processing units in all AWS Regions where Amazon Braket is available.",
+        "word_for_word": true
+      }
+    ],
+    "all_quotes_match": true
+  },
+  "checks": {
+    "check_1": "yes",
+    "check_1_why": "The page URL is on aws.amazon.com (aws.amazon.com/blogs/aws/amazon-braket-program-sets/).",
+    "check_2": "yes",
+    "check_2_why": "Both quoted sentences are taken as provided from the researcher's page AWS-SRC-021.",
+    "check_3": "no",
+    "check_3_why": "The quotes cover Braket program sets and AWS Regions in general; none mention a managed quantum computing Region, us-east-1, or re:Invent 2025.",
+    "verdict": "rejected",
+    "reason": "Check 3 failed: the quoted AWS page covers Amazon Braket program sets only and does not back the claim of a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+    "verdict_follows_checks": true
+  },
+  "log": [
+    {
+      "node": "lead",
+      "got": {
+        "candidate_id": "C-02"
+      },
+      "csv_row": {
+        "candidate_id": "C-02",
+        "claim_text": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+        "claimed_service": "AWS (quantum Region)",
+        "claim_type": "new_region",
+        "origin_source_name": "Hacker News front page",
+        "origin_source_url": "https://news.ycombinator.com/",
+        "origin_source_type": "third_party_blog",
+        "origin_published_date": "2025-10-30",
+        "collected_at": "2025-10-31T07:05:12Z"
+      },
+      "gave_researcher": {
+        "candidate_id": "C-02",
+        "claim_text": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+        "claimed_service": "AWS (quantum Region)"
+      }
+    },
+    {
+      "node": "researcher",
+      "got": {
+        "candidate_id": "C-02",
+        "claim_text": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+        "claimed_service": "AWS (quantum Region)"
+      },
+      "gave_fact_checker": {
+        "page_id": "AWS-SRC-021",
+        "url": "https://aws.amazon.com/blogs/aws/amazon-braket-program-sets/",
+        "captured_at": "2025-11-03T06:16:43Z",
+        "quotes": [
+          "Amazon Braket, the quantum computing service from AWS, now supports program sets.",
+          "Program sets are available on supported quantum processing units in all AWS Regions where Amazon Braket is available."
+        ],
+        "why_this_page": "Closest snapshot page on a quantum service, but it only covers Braket program sets and says nothing about a managed quantum computing Region, us-east-1, or re:Invent 2025, so the claim is unsupported by this page."
+      },
+      "quote_check_by_code": {
+        "url_matches_page_id": true,
+        "captured_at_matches": true,
+        "quotes": [
+          {
+            "quote": "Amazon Braket, the quantum computing service from AWS, now supports program sets.",
+            "word_for_word": true
+          },
+          {
+            "quote": "Program sets are available on supported quantum processing units in all AWS Regions where Amazon Braket is available.",
+            "word_for_word": true
+          }
+        ],
+        "all_quotes_match": true
+      },
+      "raw_model_reply": "{\"page_id\": \"AWS-SRC-021\", \"url\": \"https://aws.amazon.com/blogs/aws/amazon-braket-program-sets/\", \"captured_at\": \"2025-11-03T06:16:43Z\", \"quotes\": [\"Amazon Braket, the quantum computing service from AWS, now supports program sets.\", \"Program sets are available on supported quantum processing units in all AWS Regions where Amazon Braket is available.\"], \"why_this_page\": \"Closest snapshot page on a quantum service, but it only covers Braket program sets and says nothing about a managed quantum computing Region, us-east-1, or re:Invent 2025, so the claim is unsupported by this page.\"}"
+    },
+    {
+      "node": "fact_checker",
+      "got": {
+        "claim": {
+          "candidate_id": "C-02",
+          "claim_text": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+          "claimed_service": "AWS (quantum Region)"
+        },
+        "evidence": {
+          "page_id": "AWS-SRC-021",
+          "url": "https://aws.amazon.com/blogs/aws/amazon-braket-program-sets/",
+          "captured_at": "2025-11-03T06:16:43Z",
+          "quotes": [
+            "Amazon Braket, the quantum computing service from AWS, now supports program sets.",
+            "Program sets are available on supported quantum processing units in all AWS Regions where Amazon Braket is available."
+          ],
+          "why_this_page": "Closest snapshot page on a quantum service, but it only covers Braket program sets and says nothing about a managed quantum computing Region, us-east-1, or re:Invent 2025, so the claim is unsupported by this page."
+        }
+      },
+      "rule_file": "confirm_rule.md",
+      "gave": {
+        "check_1": "yes",
+        "check_1_why": "The page URL is on aws.amazon.com (aws.amazon.com/blogs/aws/amazon-braket-program-sets/).",
+        "check_2": "yes",
+        "check_2_why": "Both quoted sentences are taken as provided from the researcher's page AWS-SRC-021.",
+        "check_3": "no",
+        "check_3_why": "The quotes cover Braket program sets and AWS Regions in general; none mention a managed quantum computing Region, us-east-1, or re:Invent 2025.",
+        "verdict": "rejected",
+        "reason": "Check 3 failed: the quoted AWS page covers Amazon Braket program sets only and does not back the claim of a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+        "verdict_follows_checks": true
+      },
+      "raw_model_reply": "{\"check_1\": \"yes\", \"check_1_why\": \"The page URL is on aws.amazon.com (aws.amazon.com/blogs/aws/amazon-braket-program-sets/).\", \"check_2\": \"yes\", \"check_2_why\": \"Both quoted sentences are taken as provided from the researcher's page AWS-SRC-021.\", \"check_3\": \"no\", \"check_3_why\": \"The quotes cover Braket program sets and AWS Regions in general; none mention a managed quantum computing Region, us-east-1, or re:Invent 2025.\", \"verdict\": \"rejected\", \"reason\": \"Check 3 failed: the quoted AWS page covers Amazon Braket program sets only and does not back the claim of a managed quantum computing Region in us-east-1 at re:Invent 2025.\"}"
+    }
+  ]
+}

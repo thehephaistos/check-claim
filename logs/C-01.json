@@ -1,0 +1,139 @@
+{
+  "candidate_id": "C-01",
+  "model": "anthropic/claude-haiku-5.5",
+  "run_id": "300733b8-800e-4184-a609-a1c942a87fb2",
+  "started_at": "2026-11-12T14:53:17.748999+00:00",
+  "trace_url": "https://smith.langchain.com/public/fb067d55-e489-4167-a62d-2ba97ee1ddaf/r",
+  "claim": {
+    "candidate_id": "C-01",
+    "claim_text": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
+    "claimed_service": "Amazon Bedrock AgentCore"
+  },
+  "evidence": {
+    "page_id": "AWS-SRC-019",
+    "url": "https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/",
+    "captured_at": "2025-11-03T06:15:08Z",
+    "quotes": [
+      "Amazon Bedrock AgentCore is now generally available.",
+      "AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model."
+    ],
+    "why_this_page": "This is the AWS What's New announcement that AgentCore is generally available, and it describes building and operating AI agents at scale."
+  },
+  "quote_check": {
+    "url_matches_page_id": true,
+    "captured_at_matches": true,
+    "quotes": [
+      {
+        "quote": "Amazon Bedrock AgentCore is now generally available.",
+        "word_for_word": true
+      },
+      {
+        "quote": "AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model.",
+        "word_for_word": true
+      }
+    ],
+    "all_quotes_match": true
+  },
+  "checks": {
+    "check_1": "yes",
+    "check_1_why": "The source URL is on aws.amazon.com (AWS What's New page AWS-SRC-019).",
+    "check_2": "yes",
+    "check_2_why": "Both quoted sentences match the AWS-SRC-019 page text as recorded in the snapshot and the worked example.",
+    "check_3": "yes",
+    "check_3_why": "\"Now generally available\" is backed by the first quote, and \"building and running AI agents at scale\" is backed by \"build, deploy and operate AI agents securely at scale\".",
+    "verdict": "confirmed",
+    "reason": "An aws.amazon.com What's New page states word for word that Amazon Bedrock AgentCore is generally available for building and operating AI agents at scale.",
+    "verdict_follows_checks": true
+  },
+  "log": [
+    {
+      "node": "lead",
+      "got": {
+        "candidate_id": "C-01"
+      },
+      "csv_row": {
+        "candidate_id": "C-01",
+        "claim_text": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
+        "claimed_service": "Amazon Bedrock AgentCore",
+        "claim_type": "general_availability",
+        "origin_source_name": "AWS What's New",
+        "origin_source_url": "https://aws.amazon.com/bedrock/agentcore/",
+        "origin_source_type": "aws_whats_new",
+        "origin_published_date": "2025-10-13",
+        "collected_at": "2025-10-27T07:02:41Z"
+      },
+      "gave_researcher": {
+        "candidate_id": "C-01",
+        "claim_text": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
+        "claimed_service": "Amazon Bedrock AgentCore"
+      }
+    },
+    {
+      "node": "researcher",
+      "got": {
+        "candidate_id": "C-01",
+        "claim_text": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
+        "claimed_service": "Amazon Bedrock AgentCore"
+      },
+      "gave_fact_checker": {
+        "page_id": "AWS-SRC-019",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/",
+        "captured_at": "2025-11-03T06:15:08Z",
+        "quotes": [
+          "Amazon Bedrock AgentCore is now generally available.",
+          "AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model."
+        ],
+        "why_this_page": "This is the AWS What's New announcement that AgentCore is generally available, and it describes building and operating AI agents at scale."
+      },
+      "quote_check_by_code": {
+        "url_matches_page_id": true,
+        "captured_at_matches": true,
+        "quotes": [
+          {
+            "quote": "Amazon Bedrock AgentCore is now generally available.",
+            "word_for_word": true
+          },
+          {
+            "quote": "AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model.",
+            "word_for_word": true
+          }
+        ],
+        "all_quotes_match": true
+      },
+      "raw_model_reply": "{\"page_id\": \"AWS-SRC-019\", \"url\": \"https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/\", \"captured_at\": \"2025-11-03T06:15:08Z\", \"quotes\": [\"Amazon Bedrock AgentCore is now generally available.\", \"AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model.\"], \"why_this_page\": \"This is the AWS What's New announcement that AgentCore is generally available, and it describes building and operating AI agents at scale.\"}"
+    },
+    {
+      "node": "fact_checker",
+      "got": {
+        "claim": {
+          "candidate_id": "C-01",
+          "claim_text": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
+          "claimed_service": "Amazon Bedrock AgentCore"
+        },
+        "evidence": {
+          "page_id": "AWS-SRC-019",
+          "url": "https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/",
+          "captured_at": "2025-11-03T06:15:08Z",
+          "quotes": [
+            "Amazon Bedrock AgentCore is now generally available.",
+            "AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model."
+          ],
+          "why_this_page": "This is the AWS What's New announcement that AgentCore is generally available, and it describes building and operating AI agents at scale."
+        }
+      },
+      "rule_file": "confirm_rule.md",
+      "gave": {
+        "check_1": "yes",
+        "check_1_why": "The source URL is on aws.amazon.com (AWS What's New page AWS-SRC-019).",
+        "check_2": "yes",
+        "check_2_why": "Both quoted sentences match the AWS-SRC-019 page text as recorded in the snapshot and the worked example.",
+        "check_3": "yes",
+        "check_3_why": "\"Now generally available\" is backed by the first quote, and \"building and running AI agents at scale\" is backed by \"build, deploy and operate AI agents securely at scale\".",
+        "verdict": "confirmed",
+        "reason": "An aws.amazon.com What's New page states word for word that Amazon Bedrock AgentCore is generally available for building and operating AI agents at scale.",
+        "verdict_follows_checks": true
+      },
+      "raw_model_reply": "{\"check_1\": \"yes\", \"check_1_why\": \"The source URL is on aws.amazon.com (AWS What's New page AWS-SRC-019).\", \"check_2\": \"yes\", \"check_2_why\": \"Both quoted sentences match the AWS-SRC-019 page text as recorded in the snapshot and the worked example.\", \"check_3\": \"yes\", \"check_3_why\": \"\\\"Now generally available\\\" is backed by the first quote, and \\\"building and running AI agents at scale\\\" is backed by \\\"build, deploy and operate AI agents securely at scale\\\".\", \"verdict\": \"confirmed\", \"reason\": \"An aws.amazon.com What's New page states word for word that Amazon Bedrock AgentCore is generally available for building and operating AI agents at scale.\"}"
+    }
+  ]
+}

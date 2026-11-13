@@ -1,9 +1,9 @@
 {
   "candidate_id": "C-04",
   "model": "anthropic/claude-haiku-5.5",
-  "run_id": "6e05f1d0-5b98-41b5-b7cb-fd33fa0f09e1",
-  "started_at": "2026-11-12T14:53:36.636717+00:00",
-  "trace_url": "https://smith.langchain.com/public/bb3b1d73-ff79-4e6e-b731-07e589177e51/r",
+  "run_id": "fedce6ad-6eb9-47f3-a20f-ce873604f552",
+  "started_at": "2026-11-13T10:29:06.229345+00:00",
+  "trace_url": "https://smith.langchain.com/public/7a9ac49b-4947-4a7c-9dda-3201ecbef068/r",
   "claim": {
     "candidate_id": "C-04",
     "claim_text": "Amazon Aurora DSQL is now generally available as a serverless distributed SQL database with active-active high availability.",
@@ -17,7 +17,7 @@
       "Amazon Aurora DSQL is now generally available.",
       "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage."
     ],
-    "why_this_page": "This is the general-availability announcement for Amazon Aurora DSQL, and it states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim."
+    "why_this_page": "This what's-new page is the general availability announcement for Amazon Aurora DSQL and states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim."
   },
   "quote_check": {
     "url_matches_page_id": true,
@@ -36,14 +36,50 @@
   },
   "checks": {
     "check_1": "yes",
-    "check_1_why": "The URL is on aws.amazon.com (AWS-SRC-016).",
+    "check_1_why": "Snapshot page AWS-SRC-016 on aws.amazon.com, captured 2025-11-03T06:12:44Z.",
     "check_2": "yes",
-    "check_2_why": "Both quoted sentences are as supplied by the researcher for AWS-SRC-016; I did not have the snapshot file to re-compare them.",
+    "check_2_why": "All 2 quotes appear word for word on AWS-SRC-016.",
     "check_3": "yes",
-    "check_3_why": "\"Now generally available\" is backed by the first quote, and \"serverless distributed SQL database with active-active high availability\" is backed by the second quote.",
+    "check_3_why": "Every fact in the claim is backed by a quote that states the same fact, so check 3 passes.",
+    "facts": [
+      {
+        "fact": "The service is Amazon Aurora DSQL",
+        "backing_quote": "Amazon Aurora DSQL is now generally available.",
+        "backed": "yes",
+        "why": "The quote names the same service, Amazon Aurora DSQL.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "The service is now generally available",
+        "backing_quote": "Amazon Aurora DSQL is now generally available.",
+        "backed": "yes",
+        "why": "The quote states the same status: now generally available.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "The database is serverless",
+        "backing_quote": "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.",
+        "backed": "yes",
+        "why": "The quote states that Aurora DSQL is serverless.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "The database is a distributed SQL database",
+        "backing_quote": "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.",
+        "backed": "yes",
+        "why": "The quote states that Aurora DSQL is a distributed SQL database.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "The database provides active-active high availability",
+        "backing_quote": "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.",
+        "backed": "yes",
+        "why": "The quote states that Aurora DSQL has active-active high availability.",
+        "backed_by_researcher_quote": true
+      }
+    ],
     "verdict": "confirmed",
-    "reason": "An aws.amazon.com What's New page states that Amazon Aurora DSQL is generally available and describes it as a serverless, distributed SQL database with active-active high availability.",
-    "verdict_follows_checks": true
+    "reason": "All three checks passed: Every fact in the claim is backed by a quote that states the same fact, so check 3 passes."
   },
   "log": [
     {
@@ -83,7 +119,7 @@
           "Amazon Aurora DSQL is now generally available.",
           "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage."
         ],
-        "why_this_page": "This is the general-availability announcement for Amazon Aurora DSQL, and it states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim."
+        "why_this_page": "This what's-new page is the general availability announcement for Amazon Aurora DSQL and states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim."
       },
       "quote_check_by_code": {
         "url_matches_page_id": true,
@@ -100,7 +136,7 @@
         ],
         "all_quotes_match": true
       },
-      "raw_model_reply": "{\"page_id\": \"AWS-SRC-016\", \"url\": \"https://aws.amazon.com/about-aws/whats-new/2025/05/amazon-aurora-dsql-generally-available/\", \"captured_at\": \"2025-11-03T06:12:44Z\", \"quotes\": [\"Amazon Aurora DSQL is now generally available.\", \"Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.\"], \"why_this_page\": \"This is the general-availability announcement for Amazon Aurora DSQL, and it states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim.\"}"
+      "raw_model_reply": "{\"page_id\": \"AWS-SRC-016\", \"url\": \"https://aws.amazon.com/about-aws/whats-new/2025/05/amazon-aurora-dsql-generally-available/\", \"captured_at\": \"2025-11-03T06:12:44Z\", \"quotes\": [\"Amazon Aurora DSQL is now generally available.\", \"Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.\"], \"why_this_page\": \"This what's-new page is the general availability announcement for Amazon Aurora DSQL and states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim.\"}"
     },
     {
       "node": "fact_checker",
@@ -118,22 +154,58 @@
             "Amazon Aurora DSQL is now generally available.",
             "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage."
           ],
-          "why_this_page": "This is the general-availability announcement for Amazon Aurora DSQL, and it states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim."
+          "why_this_page": "This what's-new page is the general availability announcement for Amazon Aurora DSQL and states both the GA status and the serverless, distributed SQL, active-active high availability description in the claim."
         }
       },
       "rule_file": "confirm_rule.md",
       "gave": {
         "check_1": "yes",
-        "check_1_why": "The URL is on aws.amazon.com (AWS-SRC-016).",
+        "check_1_why": "Snapshot page AWS-SRC-016 on aws.amazon.com, captured 2025-11-03T06:12:44Z.",
         "check_2": "yes",
-        "check_2_why": "Both quoted sentences are as supplied by the researcher for AWS-SRC-016; I did not have the snapshot file to re-compare them.",
+        "check_2_why": "All 2 quotes appear word for word on AWS-SRC-016.",
         "check_3": "yes",
-        "check_3_why": "\"Now generally available\" is backed by the first quote, and \"serverless distributed SQL database with active-active high availability\" is backed by the second quote.",
+        "check_3_why": "Every fact in the claim is backed by a quote that states the same fact, so check 3 passes.",
+        "facts": [
+          {
+            "fact": "The service is Amazon Aurora DSQL",
+            "backing_quote": "Amazon Aurora DSQL is now generally available.",
+            "backed": "yes",
+            "why": "The quote names the same service, Amazon Aurora DSQL.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "The service is now generally available",
+            "backing_quote": "Amazon Aurora DSQL is now generally available.",
+            "backed": "yes",
+            "why": "The quote states the same status: now generally available.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "The database is serverless",
+            "backing_quote": "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.",
+            "backed": "yes",
+            "why": "The quote states that Aurora DSQL is serverless.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "The database is a distributed SQL database",
+            "backing_quote": "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.",
+            "backed": "yes",
+            "why": "The quote states that Aurora DSQL is a distributed SQL database.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "The database provides active-active high availability",
+            "backing_quote": "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.",
+            "backed": "yes",
+            "why": "The quote states that Aurora DSQL has active-active high availability.",
+            "backed_by_researcher_quote": true
+          }
+        ],
         "verdict": "confirmed",
-        "reason": "An aws.amazon.com What's New page states that Amazon Aurora DSQL is generally available and describes it as a serverless, distributed SQL database with active-active high availability.",
-        "verdict_follows_checks": true
+        "reason": "All three checks passed: Every fact in the claim is backed by a quote that states the same fact, so check 3 passes."
       },
-      "raw_model_reply": "{\"check_1\": \"yes\", \"check_1_why\": \"The URL is on aws.amazon.com (AWS-SRC-016).\", \"check_2\": \"yes\", \"check_2_why\": \"Both quoted sentences are as supplied by the researcher for AWS-SRC-016; I did not have the snapshot file to re-compare them.\", \"check_3\": \"yes\", \"check_3_why\": \"\\\"Now generally available\\\" is backed by the first quote, and \\\"serverless distributed SQL database with active-active high availability\\\" is backed by the second quote.\", \"verdict\": \"confirmed\", \"reason\": \"An aws.amazon.com What's New page states that Amazon Aurora DSQL is generally available and describes it as a serverless, distributed SQL database with active-active high availability.\"}"
+      "raw_model_reply": "{\"facts\": [{\"fact\": \"The service is Amazon Aurora DSQL\", \"backing_quote\": \"Amazon Aurora DSQL is now generally available.\", \"backed\": \"yes\", \"why\": \"The quote names the same service, Amazon Aurora DSQL.\"}, {\"fact\": \"The service is now generally available\", \"backing_quote\": \"Amazon Aurora DSQL is now generally available.\", \"backed\": \"yes\", \"why\": \"The quote states the same status: now generally available.\"}, {\"fact\": \"The database is serverless\", \"backing_quote\": \"Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.\", \"backed\": \"yes\", \"why\": \"The quote states that Aurora DSQL is serverless.\"}, {\"fact\": \"The database is a distributed SQL database\", \"backing_quote\": \"Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.\", \"backed\": \"yes\", \"why\": \"The quote states that Aurora DSQL is a distributed SQL database.\"}, {\"fact\": \"The database provides active-active high availability\", \"backing_quote\": \"Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage.\", \"backed\": \"yes\", \"why\": \"The quote states that Aurora DSQL has active-active high availability.\"}], \"check_3_why\": \"Every fact in the claim is backed by a quote that states the same fact, so check 3 passes.\"}"
     }
   ]
 }

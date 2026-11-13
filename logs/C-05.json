@@ -1,39 +1,34 @@
 {
   "candidate_id": "C-05",
   "model": "anthropic/claude-haiku-5.5",
-  "run_id": "c042d04a-d895-448f-bceb-b0c49f732726",
-  "started_at": "2026-11-12T14:53:43.473365+00:00",
-  "trace_url": "https://smith.langchain.com/public/cc5ca97e-cf70-4630-b8f8-49f67690da5f/r",
+  "run_id": "34636454-e75f-4a80-a346-60d66eb028f7",
+  "started_at": "2026-11-13T10:29:15.580143+00:00",
+  "trace_url": "https://smith.langchain.com/public/bc096e08-71bd-4537-bfc2-538af4bffb89/r",
   "claim": {
     "candidate_id": "C-05",
     "claim_text": "Amazon S3 Vectors is now GA and lets you store and query vector embeddings natively in S3 at massive scale.",
     "claimed_service": "Amazon S3 Vectors"
   },
   "evidence": {
-    "page_id": "AWS-SRC-014",
-    "url": "https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-s3-vectors-preview-native-support-storing-querying-vectors/",
-    "captured_at": "2025-11-03T06:10:51Z",
+    "page_id": "AWS-SRC-015",
+    "url": "https://aws.amazon.com/s3/features/vectors/",
+    "captured_at": "2025-11-03T06:11:37Z",
     "quotes": [
-      "Amazon S3 Vectors is now available in preview.",
-      "S3 Vectors is the first cloud object store with native support to store and query vectors, and can reduce the cost of uploading, storing and querying vectors by up to 90%.",
-      "The preview is available in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt) and Asia Pacific (Sydney) Regions."
+      "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+      "Amazon S3 Vectors is in preview and is available in five AWS Regions."
     ],
-    "why_this_page": "This is the S3 Vectors announcement, and it describes the service as in preview, not GA, so the claim's GA status is not supported by the snapshot."
+    "why_this_page": "This is the current product page for Amazon S3 Vectors (captured 2025-11-03). It covers the service and its vector-embedding storage, but it says S3 Vectors is in preview, not GA, so the claim's 'now GA' is not supported by any snapshot page."
   },
   "quote_check": {
     "url_matches_page_id": true,
     "captured_at_matches": true,
     "quotes": [
       {
-        "quote": "Amazon S3 Vectors is now available in preview.",
+        "quote": "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
         "word_for_word": true
       },
       {
-        "quote": "S3 Vectors is the first cloud object store with native support to store and query vectors, and can reduce the cost of uploading, storing and querying vectors by up to 90%.",
-        "word_for_word": true
-      },
-      {
-        "quote": "The preview is available in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt) and Asia Pacific (Sydney) Regions.",
+        "quote": "Amazon S3 Vectors is in preview and is available in five AWS Regions.",
         "word_for_word": true
       }
     ],
@@ -41,14 +36,57 @@
   },
   "checks": {
     "check_1": "yes",
-    "check_1_why": "The URL is on aws.amazon.com (AWS-SRC-014, the S3 Vectors What's New page).",
-    "check_2": "no",
-    "check_2_why": "The first two quotes match the snapshot text in the worked example, but the third quote (the Regions sentence) is not in the snapshot I was given, so I cannot confirm it word for word.",
+    "check_1_why": "Snapshot page AWS-SRC-015 on aws.amazon.com, captured 2025-11-03T06:11:37Z.",
+    "check_2": "yes",
+    "check_2_why": "All 2 quotes appear word for word on AWS-SRC-015.",
     "check_3": "no",
-    "check_3_why": "The claim says S3 Vectors is GA, but the quoted sentences say it is in preview, so the GA fact is not backed.",
+    "check_3_why": "Not backed by any quote: The service is now generally available (GA). The only status quote says the service is in preview, which is a different status from generally available.",
+    "facts": [
+      {
+        "fact": "Amazon S3 Vectors is the service named in the claim",
+        "backing_quote": "Amazon S3 Vectors is in preview and is available in five AWS Regions.",
+        "backed": "yes",
+        "why": "The quote names Amazon S3 Vectors as the subject, so the service identity is stated.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "The service is now generally available (GA)",
+        "backing_quote": "none",
+        "backed": "no",
+        "why": "The only status quote says the service is in preview, which is a different status from generally available.",
+        "backed_by_researcher_quote": false
+      },
+      {
+        "fact": "You can store vector embeddings",
+        "backing_quote": "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+        "backed": "yes",
+        "why": "The quote states that vector embeddings can be stored in vector buckets.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "You can query vector embeddings",
+        "backing_quote": "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+        "backed": "yes",
+        "why": "The quote states that similarity queries can be run on the stored vector embeddings.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "Vectors are stored natively in S3",
+        "backing_quote": "none",
+        "backed": "no",
+        "why": "The quotes mention vector buckets but do not say the vectors are stored natively in S3.",
+        "backed_by_researcher_quote": false
+      },
+      {
+        "fact": "The service operates at massive scale",
+        "backing_quote": "none",
+        "backed": "no",
+        "why": "No quote mentions scale; the quoted text covers subsecond query times and no infrastructure to provision.",
+        "backed_by_researcher_quote": false
+      }
+    ],
     "verdict": "rejected",
-    "reason": "Check 3 failed: the AWS page says S3 Vectors is in preview, which does not back up the claim that it is generally available (and check 2 could not be verified for the third quote).",
-    "verdict_follows_checks": true
+    "reason": "Check 3 failed: Not backed by any quote: The service is now generally available (GA). The only status quote says the service is in preview, which is a different status from generally available."
   },
   "log": [
     {
@@ -81,36 +119,31 @@
         "claimed_service": "Amazon S3 Vectors"
       },
       "gave_fact_checker": {
-        "page_id": "AWS-SRC-014",
-        "url": "https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-s3-vectors-preview-native-support-storing-querying-vectors/",
-        "captured_at": "2025-11-03T06:10:51Z",
+        "page_id": "AWS-SRC-015",
+        "url": "https://aws.amazon.com/s3/features/vectors/",
+        "captured_at": "2025-11-03T06:11:37Z",
         "quotes": [
-          "Amazon S3 Vectors is now available in preview.",
-          "S3 Vectors is the first cloud object store with native support to store and query vectors, and can reduce the cost of uploading, storing and querying vectors by up to 90%.",
-          "The preview is available in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt) and Asia Pacific (Sydney) Regions."
+          "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+          "Amazon S3 Vectors is in preview and is available in five AWS Regions."
         ],
-        "why_this_page": "This is the S3 Vectors announcement, and it describes the service as in preview, not GA, so the claim's GA status is not supported by the snapshot."
+        "why_this_page": "This is the current product page for Amazon S3 Vectors (captured 2025-11-03). It covers the service and its vector-embedding storage, but it says S3 Vectors is in preview, not GA, so the claim's 'now GA' is not supported by any snapshot page."
       },
       "quote_check_by_code": {
         "url_matches_page_id": true,
         "captured_at_matches": true,
         "quotes": [
           {
-            "quote": "Amazon S3 Vectors is now available in preview.",
+            "quote": "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
             "word_for_word": true
           },
           {
-            "quote": "S3 Vectors is the first cloud object store with native support to store and query vectors, and can reduce the cost of uploading, storing and querying vectors by up to 90%.",
-            "word_for_word": true
-          },
-          {
-            "quote": "The preview is available in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt) and Asia Pacific (Sydney) Regions.",
+            "quote": "Amazon S3 Vectors is in preview and is available in five AWS Regions.",
             "word_for_word": true
           }
         ],
         "all_quotes_match": true
       },
-      "raw_model_reply": "{\"page_id\": \"AWS-SRC-014\", \"url\": \"https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-s3-vectors-preview-native-support-storing-querying-vectors/\", \"captured_at\": \"2025-11-03T06:10:51Z\", \"quotes\": [\"Amazon S3 Vectors is now available in preview.\", \"S3 Vectors is the first cloud object store with native support to store and query vectors, and can reduce the cost of uploading, storing and querying vectors by up to 90%.\", \"The preview is available in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt) and Asia Pacific (Sydney) Regions.\"], \"why_this_page\": \"This is the S3 Vectors announcement, and it describes the service as in preview, not GA, so the claim's GA status is not supported by the snapshot.\"}"
+      "raw_model_reply": "{\"page_id\": \"AWS-SRC-015\", \"url\": \"https://aws.amazon.com/s3/features/vectors/\", \"captured_at\": \"2025-11-03T06:11:37Z\", \"quotes\": [\"Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.\", \"Amazon S3 Vectors is in preview and is available in five AWS Regions.\"], \"why_this_page\": \"This is the current product page for Amazon S3 Vectors (captured 2025-11-03). It covers the service and its vector-embedding storage, but it says S3 Vectors is in preview, not GA, so the claim's 'now GA' is not supported by any snapshot page.\"}"
     },
     {
       "node": "fact_checker",
@@ -121,30 +154,72 @@
           "claimed_service": "Amazon S3 Vectors"
         },
         "evidence": {
-          "page_id": "AWS-SRC-014",
-          "url": "https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-s3-vectors-preview-native-support-storing-querying-vectors/",
-          "captured_at": "2025-11-03T06:10:51Z",
+          "page_id": "AWS-SRC-015",
+          "url": "https://aws.amazon.com/s3/features/vectors/",
+          "captured_at": "2025-11-03T06:11:37Z",
           "quotes": [
-            "Amazon S3 Vectors is now available in preview.",
-            "S3 Vectors is the first cloud object store with native support to store and query vectors, and can reduce the cost of uploading, storing and querying vectors by up to 90%.",
-            "The preview is available in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt) and Asia Pacific (Sydney) Regions."
+            "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+            "Amazon S3 Vectors is in preview and is available in five AWS Regions."
           ],
-          "why_this_page": "This is the S3 Vectors announcement, and it describes the service as in preview, not GA, so the claim's GA status is not supported by the snapshot."
+          "why_this_page": "This is the current product page for Amazon S3 Vectors (captured 2025-11-03). It covers the service and its vector-embedding storage, but it says S3 Vectors is in preview, not GA, so the claim's 'now GA' is not supported by any snapshot page."
         }
       },
       "rule_file": "confirm_rule.md",
       "gave": {
         "check_1": "yes",
-        "check_1_why": "The URL is on aws.amazon.com (AWS-SRC-014, the S3 Vectors What's New page).",
-        "check_2": "no",
-        "check_2_why": "The first two quotes match the snapshot text in the worked example, but the third quote (the Regions sentence) is not in the snapshot I was given, so I cannot confirm it word for word.",
+        "check_1_why": "Snapshot page AWS-SRC-015 on aws.amazon.com, captured 2025-11-03T06:11:37Z.",
+        "check_2": "yes",
+        "check_2_why": "All 2 quotes appear word for word on AWS-SRC-015.",
         "check_3": "no",
-        "check_3_why": "The claim says S3 Vectors is GA, but the quoted sentences say it is in preview, so the GA fact is not backed.",
+        "check_3_why": "Not backed by any quote: The service is now generally available (GA). The only status quote says the service is in preview, which is a different status from generally available.",
+        "facts": [
+          {
+            "fact": "Amazon S3 Vectors is the service named in the claim",
+            "backing_quote": "Amazon S3 Vectors is in preview and is available in five AWS Regions.",
+            "backed": "yes",
+            "why": "The quote names Amazon S3 Vectors as the subject, so the service identity is stated.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "The service is now generally available (GA)",
+            "backing_quote": "none",
+            "backed": "no",
+            "why": "The only status quote says the service is in preview, which is a different status from generally available.",
+            "backed_by_researcher_quote": false
+          },
+          {
+            "fact": "You can store vector embeddings",
+            "backing_quote": "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+            "backed": "yes",
+            "why": "The quote states that vector embeddings can be stored in vector buckets.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "You can query vector embeddings",
+            "backing_quote": "Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.",
+            "backed": "yes",
+            "why": "The quote states that similarity queries can be run on the stored vector embeddings.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "Vectors are stored natively in S3",
+            "backing_quote": "none",
+            "backed": "no",
+            "why": "The quotes mention vector buckets but do not say the vectors are stored natively in S3.",
+            "backed_by_researcher_quote": false
+          },
+          {
+            "fact": "The service operates at massive scale",
+            "backing_quote": "none",
+            "backed": "no",
+            "why": "No quote mentions scale; the quoted text covers subsecond query times and no infrastructure to provision.",
+            "backed_by_researcher_quote": false
+          }
+        ],
         "verdict": "rejected",
-        "reason": "Check 3 failed: the AWS page says S3 Vectors is in preview, which does not back up the claim that it is generally available (and check 2 could not be verified for the third quote).",
-        "verdict_follows_checks": true
+        "reason": "Check 3 failed: Not backed by any quote: The service is now generally available (GA). The only status quote says the service is in preview, which is a different status from generally available."
       },
-      "raw_model_reply": "{\"check_1\": \"yes\", \"check_1_why\": \"The URL is on aws.amazon.com (AWS-SRC-014, the S3 Vectors What's New page).\", \"check_2\": \"no\", \"check_2_why\": \"The first two quotes match the snapshot text in the worked example, but the third quote (the Regions sentence) is not in the snapshot I was given, so I cannot confirm it word for word.\", \"check_3\": \"no\", \"check_3_why\": \"The claim says S3 Vectors is GA, but the quoted sentences say it is in preview, so the GA fact is not backed.\", \"verdict\": \"rejected\", \"reason\": \"Check 3 failed: the AWS page says S3 Vectors is in preview, which does not back up the claim that it is generally available (and check 2 could not be verified for the third quote).\"}"
+      "raw_model_reply": "{\"facts\": [{\"fact\": \"Amazon S3 Vectors is the service named in the claim\", \"backing_quote\": \"Amazon S3 Vectors is in preview and is available in five AWS Regions.\", \"backed\": \"yes\", \"why\": \"The quote names Amazon S3 Vectors as the subject, so the service identity is stated.\"}, {\"fact\": \"The service is now generally available (GA)\", \"backing_quote\": \"none\", \"backed\": \"no\", \"why\": \"The only status quote says the service is in preview, which is a different status from generally available.\"}, {\"fact\": \"You can store vector embeddings\", \"backing_quote\": \"Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.\", \"backed\": \"yes\", \"why\": \"The quote states that vector embeddings can be stored in vector buckets.\"}, {\"fact\": \"You can query vector embeddings\", \"backing_quote\": \"Store vector embeddings in vector buckets and run similarity queries with subsecond response times, with no infrastructure to provision.\", \"backed\": \"yes\", \"why\": \"The quote states that similarity queries can be run on the stored vector embeddings.\"}, {\"fact\": \"Vectors are stored natively in S3\", \"backing_quote\": \"none\", \"backed\": \"no\", \"why\": \"The quotes mention vector buckets but do not say the vectors are stored natively in S3.\"}, {\"fact\": \"The service operates at massive scale\", \"backing_quote\": \"none\", \"backed\": \"no\", \"why\": \"No quote mentions scale; the quoted text covers subsecond query times and no infrastructure to provision.\"}], \"check_3_why\": \"Check 3 fails: the quotes say S3 Vectors is in preview, not GA, and do not back the native S3 storage or massive scale facts.\"}"
     }
   ]
 }

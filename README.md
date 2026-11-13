@@ -51,3 +51,7 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 ```
 
 [results.md](results.md) has one row per candidate with its checks, verdict, reason, public LangSmith trace and the log of that run (`logs/C-0X.json`, which records what each node got and gave back). Model: `anthropic/claude-haiku-5.5` via OpenRouter.
+
+## Stage 4: audit and fix
+
+[audit.md](audit.md) checks each first-run verdict against `confirm_rule.md`, names the agent at fault (the fact-checker, for a wrong check 2 on C-05), describes the fix in `pipeline.py`, and links the five new LangSmith traces with each quote copied word for word from the snapshot. [results.md](results.md) and `logs/` hold the new run.

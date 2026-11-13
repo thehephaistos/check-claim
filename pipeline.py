@@ -1,7 +1,7 @@
 """Three-node LangGraph pipeline: lead -> researcher -> fact_checker.
 
 Usage: python pipeline.py              (runs every candidate, writes results.md and logs/)
-       python pipeline.py C-02 C-05    (runs only those candidates)
+       python pipeline.py <candidate_id> ...  (runs only those candidates)
 
 Inputs:  data/aws_reinvent_candidate_items.csv   (the claims)
          data/aws_official_source_snapshot.json  (the 40 official AWS pages)
@@ -16,6 +16,7 @@ import time
 import uuid
 from datetime import datetime, timezone
 from typing import TypedDict
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 from langchain_core.tracers.langchain import wait_for_all_tracers
@@ -58,14 +59,18 @@ def load_snapshot():
 
 
 def ask_json(system, user):
-    """Ask the model and parse the JSON object in its reply."""
-    response = client.chat.completions.create(
-        model=MODEL_ID,
-        max_tokens=1000,
-        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
-    )
-    text = response.choices[0].message.content
-    return json.loads(text[text.find("{"): text.rfind("}") + 1]), text
+    """Ask the model and parse the JSON object in its reply; retry with the parse error."""
+    messages = [{"role": "system", "content": system + "\nReturn valid JSON: escape any double quote inside a string as \\\"."},
+                {"role": "user", "content": user}]
+    for attempt in range(3):
+        response = client.chat.completions.create(model=MODEL_ID, max_tokens=1000, messages=messages)
+        text = response.choices[0].message.content
+        try:
+            return json.loads(text[text.find("{"): text.rfind("}") + 1]), text
+        except json.JSONDecodeError as err:
+            messages += [{"role": "assistant", "content": text},
+                         {"role": "user", "content": f"That was not valid JSON ({err}). Reply again with only valid JSON."}]
+    raise ValueError(f"No valid JSON after 3 attempts: {text}")
 
 
 class State(TypedDict, total=False):
@@ -130,26 +135,89 @@ def researcher(state):
 
 
 # --- Node 3: fact-checker answers the checks from confirm_rule.md ----------
-FACT_CHECKER_FORMAT = """Reply with only this JSON:
-{"check_1": "yes" or "no", "check_1_why": "<one line>",
- "check_2": "yes" or "no", "check_2_why": "<one line>",
- "check_3": "yes" or "no", "check_3_why": "<one line>",
- "verdict": "confirmed" or "rejected",
- "reason": "<one line>"}"""
+# Checks 1 and 2 are mechanical, so code answers them. Check 3 needs judgment,
+# so the model matches every fact in the claim to the quote that backs it, and
+# code confirms each backing quote is one of the researcher's quotes. The
+# verdict is computed from the three answers: confirmed only if all are yes.
+FACT_CHECKER_FORMAT = """Answer check 3 only. Split the claim into every separate fact it states
+(the service, what happened or its status, where, and any other detail).
+For each fact, give the one quote from the researcher's list that backs it, copied exactly,
+or "none" if no quote states that fact. A quote that is only related or background does not back a fact.
+"Backed" means the quote states the same fact in meaning; the claim may use different words with the
+same meaning. Word-for-word copying applies to the quotes, which is check 2, not to the claim's wording.
+A quote does NOT back a fact if it states a different status or stage, a narrower place or scope,
+or does not mention that detail at all.
+
+Reply with only this JSON:
+{"facts": [{"fact": "<fact from the claim>", "backing_quote": "<exact quote> or none",
+            "backed": "yes" or "no", "why": "<one line>"}],
+ "check_3_why": "<one line>"}"""
+
+
+def check_1_source(evidence, page):
+    """Yes only if the page is in the snapshot, its host is exactly aws.amazon.com,
+    and the researcher's url and captured_at match that snapshot page."""
+    if page is None:
+        return "no", f"No snapshot page was cited (page_id: {evidence.get('page_id', NO_MATCH)})."
+    host = urlparse(evidence.get("url", "")).hostname
+    if host != "aws.amazon.com":
+        return "no", f"The cited host is {host}, not aws.amazon.com."
+    if evidence.get("url") != page["url"] or evidence.get("captured_at") != page["captured_at"]:
+        return "no", f"The cited url or captured_at does not match snapshot page {page['page_id']}."
+    return "yes", f"Snapshot page {page['page_id']} on aws.amazon.com, captured {page['captured_at']}."
+
+
+def check_2_quotes(evidence, page):
+    """Yes only if there is at least one quote and every quote is in the page's body_text."""
+    quotes = evidence.get("quotes", [])
+    if page is None or not quotes:
+        return "no", "There are no quotes from a snapshot page."
+    missing = [q for q in quotes if q not in page["body_text"]]
+    if missing:
+        return "no", f"Not word for word on {page['page_id']}: {missing[0]!r}"
+    return "yes", f"All {len(quotes)} quotes appear word for word on {page['page_id']}."
 
 
 def fact_checker(state):
     with open(RULE_FILE, encoding="utf-8") as f:
         rule = f.read()
-    system = ("You are the fact-checker. Follow this rule card exactly. Use only the researcher's "
-              "page and quotes; never use your own knowledge.\n\n" + rule + "\n\n" + FACT_CHECKER_FORMAT)
-    user = (f"Claim:\n{json.dumps(state['claim'], indent=2)}\n\n"
-            f"Researcher's evidence:\n{json.dumps(state['evidence'], indent=2)}")
-    checks, raw = ask_json(system, user)
-    answers = [checks.get(f"check_{i}") for i in (1, 2, 3)]
-    checks["verdict_follows_checks"] = (
-        checks.get("verdict") == ("confirmed" if answers == ["yes"] * 3 else "rejected"))
-    entry = {"node": "fact_checker", "got": {"claim": state["claim"], "evidence": state["evidence"]},
+    evidence = state["evidence"]
+    page = load_snapshot().get(evidence.get("page_id"))
+    check_1, check_1_why = check_1_source(evidence, page)
+    check_2, check_2_why = check_2_quotes(evidence, page)
+
+    raw = None
+    facts = []
+    if evidence.get("quotes"):
+        system = ("You are the fact-checker. Follow this rule card exactly. Use only the researcher's "
+                  "quotes; never use your own knowledge.\n\n" + rule + "\n\n" + FACT_CHECKER_FORMAT)
+        user = (f"Claim:\n{state['claim']['claim_text']}\n\n"
+                f"Researcher's quotes:\n{json.dumps(evidence['quotes'], indent=2)}")
+        answer, raw = ask_json(system, user)
+        facts = answer.get("facts", [])
+        check_3_why = answer.get("check_3_why", "")
+    # Every fact must be backed by a quote that really is one of the researcher's quotes.
+    for fact in facts:
+        fact["backed_by_researcher_quote"] = fact.get("backing_quote") in evidence.get("quotes", [])
+    backed = bool(facts) and all(
+        f.get("backed") == "yes" and f["backed_by_researcher_quote"] for f in facts)
+    check_3 = "yes" if backed else "no"
+    if not facts:
+        check_3_why = "There are no quotes to back the claim's facts."
+    elif not backed:
+        unbacked = next(f for f in facts if not (f.get("backed") == "yes" and f["backed_by_researcher_quote"]))
+        check_3_why = f"Not backed by any quote: {unbacked.get('fact')}. {unbacked.get('why', '')}".strip()
+
+    answers = {1: (check_1, check_1_why), 2: (check_2, check_2_why), 3: (check_3, check_3_why)}
+    failed = [n for n, (a, _) in answers.items() if a == "no"]
+    verdict = "rejected" if failed else "confirmed"
+    reason = (f"Check {failed[0]} failed: {answers[failed[0]][1]}" if failed
+              else f"All three checks passed: {check_3_why}")
+    checks = {"check_1": check_1, "check_1_why": check_1_why,
+              "check_2": check_2, "check_2_why": check_2_why,
+              "check_3": check_3, "check_3_why": check_3_why,
+              "facts": facts, "verdict": verdict, "reason": reason}
+    entry = {"node": "fact_checker", "got": {"claim": state["claim"], "evidence": evidence},
              "rule_file": "confirm_rule.md", "gave": checks, "raw_model_reply": raw}
     return {"checks": checks, "log": state["log"] + [entry]}
 

@@ -423,6 +423,13 @@ def run_safety_tests():
         sys.exit(1)
 
 
+def snapshot_capture_date():
+    """The capture date(s) read from the snapshot's captured_at fields, e.g. "3 November 2025"."""
+    days = sorted({p["captured_at"][:10] for p in load_snapshot().values()})
+    fmt = lambda d: f"{int(d[8:10])} {datetime.strptime(d, '%Y-%m-%d'):%B %Y}"
+    return fmt(days[0]) if len(days) == 1 else f"{fmt(days[0])} to {fmt(days[-1])}"
+
+
 def build_page():
     """Write briefing.html from the lists that passed the safety gate."""
     with open(LISTS_JSON, encoding="utf-8") as f:
@@ -446,7 +453,8 @@ def build_page():
     built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     n_ok = len(lists["confirmed"])
     html = PAGE_TEMPLATE.format(cards="\n".join(cards), built=built, n_ok=n_ok,
-                                n_no=len(items) - n_ok, snapshot=esc(os.path.basename(SNAPSHOT_JSON)))
+                                n_no=len(items) - n_ok, snapshot=esc(os.path.basename(SNAPSHOT_JSON)),
+                                captured=esc(snapshot_capture_date()))
     with open(BRIEFING_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     say(f"Built {os.path.relpath(BRIEFING_HTML, ROOT)}: {len(items)} items ({n_ok} confirmed, {len(items) - n_ok} rejected)")
@@ -481,7 +489,7 @@ footer {{ color:var(--muted); font-size:.85rem; border-top:1px solid var(--line)
 <p class="sub">{n_ok} confirmed, {n_no} rejected. Repeat only the confirmed items: each one is backed by an aws.amazon.com page, quoted word for word.</p>
 {cards}
 <footer>Built {built}. The safety checks are not vouched for by this page: the timestamped <a href="https://github.com/thehephaistos/check-claim/blob/main/final/run_output.txt">run output</a> shows pytest passing before the line that builds this page.
-Sources: official AWS pages saved in {snapshot}. Each item links to the LangSmith trace of the run that judged it.</footer>
+Sources: official AWS pages saved in {snapshot}, captured {captured}. This page can only vouch for what those pages said on that date. Each item links to the LangSmith trace of the run that judged it.</footer>
 </main></body></html>
 """
 

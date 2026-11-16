@@ -7,11 +7,7 @@
 Proof of order, pasted from [final/run_output.txt](final/run_output.txt): the safety checks pass before the page is built.
 
 ```text
-[2026-11-16T11:53:37.605Z] PASSED: safety gate; 3 confirmed, 2 rejected -> final/briefing_lists.json
-[2026-11-16T11:53:38.620Z] tests/test_safety.py::test_confirmed_list PASSED                         [ 50%]
-[2026-11-16T11:53:38.620Z] tests/test_safety.py::test_rejected_list PASSED                          [100%]
-[2026-11-16T11:53:38.620Z] ============================== 2 passed in 0.40s ===============================
-[2026-11-16T11:53:38.620Z] Built briefing.html: 5 items (3 confirmed, 2 rejected)
+
 ```
 
 A lead hands out each claim, a researcher finds the official aws.amazon.com page and copies its sentences word for word, and a fact-checker applies the three checks in [confirm_rule.md](confirm_rule.md). Only results that pass the safety checks (`tests/test_safety.py`) reach the page, and every item links to the public LangSmith trace of the run that judged it.

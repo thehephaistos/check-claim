@@ -1,8 +1,38 @@
 # check_claim
 
+**A three-agent LangGraph pipeline that checks AWS re:Invent launch rumours against saved official AWS pages and publishes a briefing of which claims are confirmed and which are rejected.**
+
+**Live briefing:** https://thehephaistos.github.io/check-claim/briefing.html
+
+A lead hands out each claim, a researcher finds the official aws.amazon.com page and copies its sentences word for word, and a fact-checker applies the three checks in [confirm_rule.md](confirm_rule.md). Only results that pass the safety checks (`tests/test_safety.py`) reach the page, and every item links to the public LangSmith trace of the run that judged it.
+
+## Run it
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+cp .env.example .env              # type your own OpenRouter and LangSmith keys into .env
+.venv/bin/python pipeline.py      # runs the batch, the safety checks, then builds briefing.html
+```
+
+## What's in the repo today
+
+- `pipeline.py`: the three-node graph (lead -> researcher -> fact_checker), the lead's confirmed/rejected sort, the safety gate and the page build.
+- `briefing.html`: the published briefing (served by GitHub Pages from `main`).
+- [final/run_output.txt](final/run_output.txt): the final run's timestamped output; pytest passes before the line that builds `briefing.html`.
+- [final/results.md](final/results.md), `final/logs/`, `final/briefing_lists.json`: the final run's results, per-claim logs and lists.
+- [spotcheck.md](spotcheck.md): one row per confirmed item, checked against the snapshot refresh fact by fact.
+- `data/`: the candidate batches and the official AWS source snapshots, committed exactly as given.
+- `tests/test_safety.py`: the two safety checks, one for each list.
+
+## Stage history
+
+The earlier stages are kept below for the record. Their test claims (C-01 to C-05) are not on the briefing.
+
+### Stage 1: check_claim.py
+
 Asks Claude, through OpenRouter, to fact-check one rumour (C-02) and traces the call in LangSmith.
 
-## Setup
+#### Setup
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -12,11 +42,11 @@ cp .env.example .env   # then type your own keys and model id into .env
 
 All keys and the model id are read from `.env`, which is git-ignored.
 
-## Input
+#### Input
 
 The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate list collected 27 Oct – 2 Nov 2025, committed exactly as given (sha256 `e2aebcfa1b2a5bf122c73950907a3ae08330bc1e672a02c07af8559ec177da0a`). `check_claim.py` looks up the row by `candidate_id` and sends its `claim_text` to the model. The whole row is recorded as the input in the LangSmith trace.
 
-## Result
+#### Result
 
 **Model id:** `anthropic/claude-opus-5.5` (OpenRouter)
 
@@ -38,11 +68,11 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 
 **Public LangSmith trace:** https://smith.langchain.com/public/4a64267d-be97-43ea-9857-9f407de8deab/r
 
-## Next step: what "confirmed" means
+### Next step: what "confirmed" means
 
 [confirm_rule.md](confirm_rule.md) sets the three YES/NO checks (source, quote, facts) a claim must pass to be CONFIRMED, what the lead agent, researcher and fact-checker each do, and worked examples for C-01 (CONFIRMED) and C-05 (REJECTED) quoted word for word from `data/aws_official_source_snapshot.json`, the official AWS source snapshot captured 3 November 2025.
 
-## Stage 3: agent team pipeline
+### Stage 3: agent team pipeline
 
 `pipeline.py` is a LangGraph graph with exactly three nodes that run in order: **lead** (reads the candidate row from the CSV and hands out the claim), **researcher** (finds one page in `data/aws_official_source_snapshot.json` and copies its sentences word for word, or returns "no match"), and **fact_checker** (reads its rule from `confirm_rule.md` at run time and answers the three checks). Code, not the model, checks that every quote appears word for word in the page's `body_text`.
 
@@ -52,20 +82,10 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 
 [results.md](results.md) has one row per candidate with its checks, verdict, reason, public LangSmith trace and the log of that run (`logs/C-0X.json`, which records what each node got and gave back). Model: `anthropic/claude-haiku-5.5` via OpenRouter.
 
-## Stage 4: audit and fix
+### Stage 4: audit and fix
 
 [audit.md](audit.md) checks each first-run verdict against `confirm_rule.md`, names the agent at fault (the fact-checker, for a wrong check 2 on C-05), describes the fix in `pipeline.py`, and links the five new LangSmith traces with each quote copied word for word from the snapshot. [results.md](results.md) and `logs/` hold the new run.
 
-## Stage 5: safety gate
+### Stage 5: safety gate
 
 At the end of `pipeline.py` the lead sorts the results into confirmed and rejected lists (`briefing_lists.json`). `tests/test_safety.py` checks both lists (`python -m pytest`), and the pipeline stops before writing the lists if either check fails. [checks.md](checks.md) holds a passing run and a stopped run with one planted bad item (a confirmed item citing a blog URL), since removed.
-
-## Final: live briefing
-
-**Live briefing page:** https://thehephaistos.github.io/check-claim/briefing.html
-
-Built by `pipeline.py` from `data/aws_reinvent_candidate_items_holdout.csv` (the 3 November 2025 batch), checked against `data/aws_official_source_snapshot_refresh.json`. The page only shows items that passed the safety gate and `tests/test_safety.py`; each item has its badge, its AWS link and quote (confirmed) or reason (rejected), and its public LangSmith trace.
-
-- [final/run_output.txt](final/run_output.txt): the final run's output; the safety checks pass before the line that builds `briefing.html`.
-- [final/results.md](final/results.md), `final/logs/`, `final/briefing_lists.json`: the final run's results, per-claim logs and lists.
-- [spotcheck.md](spotcheck.md): one row per confirmed item, naming the exact words on the AWS page that back each fact.

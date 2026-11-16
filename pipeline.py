@@ -221,8 +221,9 @@ def fact_checker(state):
     if not facts:
         check_3_why = "There are no quotes to back the claim's facts."
     elif not backed:
-        unbacked = next(f for f in facts if not (f.get("backed") == "yes" and f["backed_by_researcher_quote"]))
-        check_3_why = f"Not backed by any quote: {unbacked.get('fact')}. {unbacked.get('why', '')}".strip()
+        unbacked = [f for f in facts if not (f.get("backed") == "yes" and f["backed_by_researcher_quote"])]
+        check_3_why = "Not backed by any quote: " + "; ".join(
+            f"{f.get('fact')} ({f.get('why', '').strip()})" for f in unbacked)
 
     answers = {1: (check_1, check_1_why), 2: (check_2, check_2_why), 3: (check_3, check_3_why)}
     failed = [n for n, (a, _) in answers.items() if a == "no"]
@@ -303,6 +304,38 @@ def load_records():
             for name in sorted(os.listdir(LOG_DIR)) if name.endswith(".json")]
 
 
+def readable_reason(record):
+    """Turn the fact-checker's output into one sentence a reader can repeat, with no
+    internal references such as quote numbers or check numbers."""
+    evidence, checks = record["evidence"], record["checks"]
+    quotes = evidence.get("quotes", [])
+    if evidence.get("page_id") == NO_MATCH:
+        return "No official AWS page in the snapshot states this claim."
+    if checks.get("check_1") == "no":
+        return "The cited source is not an aws.amazon.com page in the snapshot."
+    if checks.get("check_2") == "no":
+        return "A quoted sentence does not appear word for word on the AWS page."
+
+    seen = set()
+
+    def resolve(text):  # "quote 2" -> the sentence itself the first time, "that sentence" after
+        def sub(m):
+            n = int(m.group(1))
+            if not 0 < n <= len(quotes):
+                return "the page"
+            if n in seen:
+                return "that sentence"
+            seen.add(n)
+            return f'the page sentence "{quotes[n - 1]}"'
+        return re.sub(r"\b[Qq]uote (\d+)", sub, text).strip().rstrip(".")
+
+    unbacked = [f for f in checks.get("facts", []) if f.get("backed") != "yes"]
+    if not unbacked:
+        return resolve(checks.get("check_3_why", "The AWS page does not back the claim")) + "."
+    return "The AWS page does not back " + "; ".join(
+        f'"{f.get("fact")}" ({resolve(f.get("why", ""))})' for f in unbacked) + "."
+
+
 def sort_results(records):
     confirmed, rejected = [], []
     for r in records:
@@ -311,8 +344,11 @@ def sort_results(records):
                               "url": r["evidence"]["url"], "quotes": r["evidence"]["quotes"],
                               "trace_url": r["trace_url"]})
         else:
-            rejected.append({"candidate_id": r["candidate_id"], "claim": r["claim"]["claim_text"],
-                             "reason": r["checks"]["reason"], "trace_url": r["trace_url"]})
+            item = {"candidate_id": r["candidate_id"], "claim": r["claim"]["claim_text"],
+                    "reason": readable_reason(r), "trace_url": r["trace_url"]}
+            if r["evidence"].get("page_id") != NO_MATCH:  # the AWS page the researcher found and checked
+                item["url"] = r["evidence"]["url"]
+            rejected.append(item)
     return confirmed, rejected
 
 
@@ -338,12 +374,18 @@ def check_confirmed(items):
 
 
 def check_rejected(items):
-    """Every rejected item needs a reason and a public trace link."""
+    """Every rejected item needs a readable reason (no internal quote or check numbers),
+    an aws.amazon.com link if it cites a page, and a public trace link."""
     problems = []
     for item in items:
         cid = item.get("candidate_id")
-        if not str(item.get("reason", "")).strip():
+        reason = str(item.get("reason", "")).strip()
+        if not reason:
             problems.append(f"{cid}: rejected with no reason")
+        if re.search(r"\b([Qq]uote|[Cc]heck) \d", reason):
+            problems.append(f"{cid}: reason points to an internal quote or check number: {reason!r}")
+        if "url" in item and urlparse(item["url"]).hostname != "aws.amazon.com":
+            problems.append(f"{cid}: rejected item links a non-aws.amazon.com page: {item['url']}")
         if not str(item.get("trace_url", "")).startswith(PUBLIC_TRACE_PREFIX):
             problems.append(f"{cid}: no public trace link")
     return problems
@@ -374,13 +416,6 @@ def run_safety_tests():
         sys.exit(1)
 
 
-def plain_reason(reason):
-    """The fact-checker's reason without the check number, for a reader of the briefing."""
-    if "No snapshot page was cited" in reason:
-        return "No official AWS page states this claim."
-    return re.sub(r"^Check \d failed:\s*", "", reason)
-
-
 def build_page():
     """Write briefing.html from the lists that passed the safety gate."""
     with open(LISTS_JSON, encoding="utf-8") as f:
@@ -393,7 +428,9 @@ def build_page():
             body = (f'<p class="src">Source: <a href="{esc(i["url"])}">{esc(i["url"])}</a></p>'
                     + "".join(f"<blockquote>{esc(q)}</blockquote>" for q in i["quotes"]))
         else:
-            body = f'<p class="reason"><strong>Why rejected:</strong> {esc(plain_reason(i["reason"]))}</p>'
+            body = f'<p class="reason"><strong>Why rejected:</strong> {esc(i["reason"])}</p>'
+            if i.get("url"):
+                body += f'<p class="src">AWS page checked: <a href="{esc(i["url"])}">{esc(i["url"])}</a></p>'
         cards.append(
             f'<article class="{i["status"]}"><header><span class="badge">{i["status"].capitalize()}</span>'
             f'<span class="id">{esc(i["candidate_id"])}</span></header>'

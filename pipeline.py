@@ -76,7 +76,7 @@ def ask_json(system, user):
     messages = [{"role": "system", "content": system + "\nReturn valid JSON: escape any double quote inside a string as \\\"."},
                 {"role": "user", "content": user}]
     for attempt in range(3):
-        response = client.chat.completions.create(model=MODEL_ID, max_tokens=1000, messages=messages)
+        response = client.chat.completions.create(model=MODEL_ID, max_tokens=2000, messages=messages)
         text = response.choices[0].message.content or ""  # an empty reply is retried like bad JSON
         try:
             return json.loads(text[text.find("{"): text.rfind("}") + 1]), text

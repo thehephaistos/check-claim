@@ -276,7 +276,81 @@ def write_results(rows):
         f.write("\n".join(lines) + "\n")
 
 
+# --- Lead's last step: sort results into confirmed and rejected lists -------
+LISTS_JSON = os.path.join(ROOT, "briefing_lists.json")
+PUBLIC_TRACE_PREFIX = "https://smith.langchain.com/public/"
+
+
+def load_records():
+    """Every run record in logs/, one per candidate."""
+    return [json.load(open(os.path.join(LOG_DIR, name), encoding="utf-8"))
+            for name in sorted(os.listdir(LOG_DIR)) if name.endswith(".json")]
+
+
+def sort_results(records):
+    confirmed, rejected = [], []
+    for r in records:
+        if r["checks"]["verdict"] == "confirmed":
+            confirmed.append({"candidate_id": r["candidate_id"], "claim": r["claim"]["claim_text"],
+                              "url": r["evidence"]["url"], "quotes": r["evidence"]["quotes"],
+                              "trace_url": r["trace_url"]})
+        else:
+            rejected.append({"candidate_id": r["candidate_id"], "claim": r["claim"]["claim_text"],
+                             "reason": r["checks"]["reason"], "trace_url": r["trace_url"]})
+    return confirmed, rejected
+
+
+def check_confirmed(items):
+    """Every confirmed item needs an aws.amazon.com snapshot link, quotes found word for
+    word on that page, and a public trace link. Returns the problems found."""
+    pages = {p["url"]: p for p in load_snapshot().values()}
+    problems = []
+    for item in items:
+        cid, url = item.get("candidate_id"), item.get("url", "")
+        if urlparse(url).hostname != "aws.amazon.com":
+            problems.append(f"{cid}: confirmed with a non-aws.amazon.com link: {url}")
+        elif url not in pages:
+            problems.append(f"{cid}: confirmed with a link that is not a snapshot page: {url}")
+        if not item.get("quotes"):
+            problems.append(f"{cid}: confirmed with no quote")
+        for q in item.get("quotes", []):
+            if url in pages and q not in pages[url]["body_text"]:
+                problems.append(f"{cid}: quote not word for word on {url}: {q!r}")
+        if not str(item.get("trace_url", "")).startswith(PUBLIC_TRACE_PREFIX):
+            problems.append(f"{cid}: no public trace link")
+    return problems
+
+
+def check_rejected(items):
+    """Every rejected item needs a reason and a public trace link."""
+    problems = []
+    for item in items:
+        cid = item.get("candidate_id")
+        if not str(item.get("reason", "")).strip():
+            problems.append(f"{cid}: rejected with no reason")
+        if not str(item.get("trace_url", "")).startswith(PUBLIC_TRACE_PREFIX):
+            problems.append(f"{cid}: no public trace link")
+    return problems
+
+
+def build_lists():
+    """Sort, run both safety checks, and stop before writing if either fails."""
+    confirmed, rejected = sort_results(load_records())
+    problems = check_confirmed(confirmed) + check_rejected(rejected)
+    if problems:
+        print("STOPPED: safety gate failed; briefing lists not written.")
+        for p in problems:
+            print(f"  - {p}")
+        sys.exit(1)
+    with open(LISTS_JSON, "w", encoding="utf-8") as f:
+        json.dump({"confirmed": confirmed, "rejected": rejected}, f, indent=2, ensure_ascii=False)
+    print(f"PASSED: safety gate; {len(confirmed)} confirmed, {len(rejected)} rejected -> {LISTS_JSON}")
+
+
 if __name__ == "__main__":
+    if sys.argv[1:] == ["--lists-only"]:  # rebuild the lists from logs/ without calling the model
+        build_lists()
+        sys.exit(0)
     ids = sys.argv[1:] or list(load_candidates())
     os.makedirs(LOG_DIR, exist_ok=True)
     runs = []
@@ -300,3 +374,4 @@ if __name__ == "__main__":
         rows.append(record)
     write_results(rows)
     print(f"Wrote {RESULTS_MD} and {len(rows)} logs in {LOG_DIR}")
+    build_lists()

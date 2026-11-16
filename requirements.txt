@@ -2,3 +2,4 @@ openai
 langsmith
 langgraph
 python-dotenv
+pytest

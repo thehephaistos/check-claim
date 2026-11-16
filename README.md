@@ -55,3 +55,7 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 ## Stage 4: audit and fix
 
 [audit.md](audit.md) checks each first-run verdict against `confirm_rule.md`, names the agent at fault (the fact-checker, for a wrong check 2 on C-05), describes the fix in `pipeline.py`, and links the five new LangSmith traces with each quote copied word for word from the snapshot. [results.md](results.md) and `logs/` hold the new run.
+
+## Stage 5: safety gate
+
+At the end of `pipeline.py` the lead sorts the results into confirmed and rejected lists (`briefing_lists.json`). `tests/test_safety.py` checks both lists (`python -m pytest`), and the pipeline stops before writing the lists if either check fails. [checks.md](checks.md) holds a passing run and a stopped run with one planted bad item (a confirmed item citing a blog URL), since removed.

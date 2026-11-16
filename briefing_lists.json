@@ -1,0 +1,44 @@
+{
+  "confirmed": [
+    {
+      "candidate_id": "C-01",
+      "claim": "Amazon Bedrock AgentCore is now generally available for building and running AI agents at scale.",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/",
+      "quotes": [
+        "Amazon Bedrock AgentCore is now generally available.",
+        "AgentCore is an agentic platform to build, deploy and operate AI agents securely at scale, using any framework and any foundation model."
+      ],
+      "trace_url": "https://smith.langchain.com/public/3dde5550-5643-46c4-9a2d-56194c608979/r"
+    },
+    {
+      "candidate_id": "C-04",
+      "claim": "Amazon Aurora DSQL is now generally available as a serverless distributed SQL database with active-active high availability.",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2025/05/amazon-aurora-dsql-generally-available/",
+      "quotes": [
+        "Amazon Aurora DSQL is now generally available.",
+        "Aurora DSQL is a serverless, distributed SQL database with virtually unlimited scale, active-active high availability, PostgreSQL compatibility and no infrastructure to manage."
+      ],
+      "trace_url": "https://smith.langchain.com/public/7a9ac49b-4947-4a7c-9dda-3201ecbef068/r"
+    }
+  ],
+  "rejected": [
+    {
+      "candidate_id": "C-02",
+      "claim": "AWS will launch a managed quantum computing Region in us-east-1 at re:Invent 2025.",
+      "reason": "Check 3 failed: Not backed by any quote: AWS will launch (a future launch event). No quote mentions a launch or any future launch by AWS; the quotes only describe program sets being supported.",
+      "trace_url": "https://smith.langchain.com/public/7cd58437-3d33-4485-bd42-c6320a8d0c0c/r"
+    },
+    {
+      "candidate_id": "C-03",
+      "claim": "Amazon EC2 P6e-GB200 UltraServers accelerated by NVIDIA Grace Blackwell are now available in all commercial AWS Regions.",
+      "reason": "Check 3 failed: Not backed by any quote: accelerated by NVIDIA Grace Blackwell. The quote says accelerated by NVIDIA GB200 NVL72 and never mentions Grace Blackwell, so this detail is not stated.",
+      "trace_url": "https://smith.langchain.com/public/87a624f8-d825-4d11-8273-fed0656b3a78/r"
+    },
+    {
+      "candidate_id": "C-05",
+      "claim": "Amazon S3 Vectors is now GA and lets you store and query vector embeddings natively in S3 at massive scale.",
+      "reason": "Check 3 failed: Not backed by any quote: The service is now generally available (GA). The only status quote says the service is in preview, which is a different status from generally available.",
+      "trace_url": "https://smith.langchain.com/public/bc096e08-71bd-4537-bfc2-538af4bffb89/r"
+    }
+  ]
+}

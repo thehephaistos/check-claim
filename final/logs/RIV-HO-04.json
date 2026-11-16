@@ -1,9 +1,9 @@
 {
   "candidate_id": "RIV-HO-04",
   "model": "anthropic/claude-haiku-5.5",
-  "run_id": "c3352f45-f827-4064-ab95-ac35bc555eea",
-  "started_at": "2026-11-16T11:49:07.911555+00:00",
-  "trace_url": "https://smith.langchain.com/public/f2812894-aa54-4be2-a2f0-213f0cf6324b/r",
+  "run_id": "5fe14281-bd3d-4002-b3ce-98b31a0caf3d",
+  "started_at": "2026-11-16T11:53:14.523539+00:00",
+  "trace_url": "https://smith.langchain.com/public/58aebd24-9d58-45ca-828d-3a3eb9c64fc3/r",
   "claim": {
     "candidate_id": "RIV-HO-04",
     "claim_text": "Amazon S3 Vectors is now generally available in all commercial AWS Regions, offering native vector storage and similarity query support for AI workloads.",
@@ -17,7 +17,7 @@
       "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
       "Amazon S3 Vectors is available in preview in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt), and Asia Pacific (Sydney) Regions."
     ],
-    "why_this_page": "This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage but states the service is in preview in five Regions, not generally available in all commercial Regions as the claim says."
+    "why_this_page": "This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage and query, but says the service is in preview in five Regions, not generally available in all commercial Regions."
   },
   "quote_check": {
     "url_matches_page_id": true,
@@ -40,59 +40,65 @@
     "check_2": "yes",
     "check_2_why": "All 2 quotes appear word for word on AWSPG-R04.",
     "check_3": "no",
-    "check_3_why": "Not backed by any quote: is generally available (status) (quote 2 says preview, a different status; no quote says generally available); in all commercial AWS Regions (scope) (quote 2 lists only five Regions, a narrower scope); similarity query support (quote 1 says query vectors but never mentions similarity; not backed strictly)",
+    "check_3_why": "Not backed by any quote: Status is generally available (no quote says generally available; quote 2 says preview); Available in all commercial AWS Regions (quote 2 lists only five preview Regions, a narrower scope)",
     "facts": [
       {
-        "fact": "Amazon S3 Vectors (the service)",
+        "fact": "Service is Amazon S3 Vectors",
         "backing_quote_number": 1,
         "backed": "yes",
         "why": "quote 1 names Amazon S3 Vectors",
+        "sentence": "",
         "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "is generally available (status)",
+        "fact": "Status is generally available",
         "backing_quote_number": 0,
         "backed": "no",
-        "why": "quote 2 says preview, a different status; no quote says generally available",
+        "why": "no quote says generally available; quote 2 says preview",
+        "sentence": "Amazon S3 Vectors is not generally available yet, because the AWS page says it is in preview.",
         "backing_quote": "none",
         "backed_by_researcher_quote": false
       },
       {
-        "fact": "in all commercial AWS Regions (scope)",
+        "fact": "Available in all commercial AWS Regions",
         "backing_quote_number": 0,
         "backed": "no",
-        "why": "quote 2 lists only five Regions, a narrower scope",
+        "why": "quote 2 lists only five preview Regions, a narrower scope",
+        "sentence": "Amazon S3 Vectors is not yet in all commercial AWS Regions, because the AWS page lists only five preview Regions.",
         "backing_quote": "none",
         "backed_by_researcher_quote": false
       },
       {
-        "fact": "native vector storage",
+        "fact": "Provides native vector storage",
         "backing_quote_number": 1,
         "backed": "yes",
         "why": "quote 1 says native support to store vectors",
+        "sentence": "",
         "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "similarity query support",
-        "backing_quote_number": 0,
-        "backed": "no",
-        "why": "quote 1 says query vectors but never mentions similarity; not backed strictly",
-        "backing_quote": "none",
-        "backed_by_researcher_quote": false
-      },
-      {
-        "fact": "for AI workloads",
+        "fact": "Provides similarity query support",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote 1 says for AI agents, AI inference, and semantic search",
+        "why": "quote 1 says native support to query vectors",
+        "sentence": "",
+        "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
+        "backed_by_researcher_quote": true
+      },
+      {
+        "fact": "Intended for AI workloads",
+        "backing_quote_number": 1,
+        "backed": "yes",
+        "why": "quote 1 says built for AI agents, AI inference, and semantic search",
+        "sentence": "",
         "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
         "backed_by_researcher_quote": true
       }
     ],
     "verdict": "rejected",
-    "reason": "Check 3 failed: Not backed by any quote: is generally available (status) (quote 2 says preview, a different status; no quote says generally available); in all commercial AWS Regions (scope) (quote 2 lists only five Regions, a narrower scope); similarity query support (quote 1 says query vectors but never mentions similarity; not backed strictly)"
+    "reason": "Check 3 failed: Not backed by any quote: Status is generally available (no quote says generally available; quote 2 says preview); Available in all commercial AWS Regions (quote 2 lists only five preview Regions, a narrower scope)"
   },
   "log": [
     {
@@ -132,7 +138,7 @@
           "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
           "Amazon S3 Vectors is available in preview in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt), and Asia Pacific (Sydney) Regions."
         ],
-        "why_this_page": "This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage but states the service is in preview in five Regions, not generally available in all commercial Regions as the claim says."
+        "why_this_page": "This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage and query, but says the service is in preview in five Regions, not generally available in all commercial Regions."
       },
       "quote_check_by_code": {
         "url_matches_page_id": true,
@@ -149,7 +155,7 @@
         ],
         "all_quotes_match": true
       },
-      "raw_model_reply": "{\"page_id\": \"AWSPG-R04\", \"url\": \"https://aws.amazon.com/s3/features/vectors/\", \"captured_at\": \"2025-11-03T05:26:00Z\", \"quotes\": [\"Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.\", \"Amazon S3 Vectors is available in preview in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt), and Asia Pacific (Sydney) Regions.\"], \"why_this_page\": \"This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage but states the service is in preview in five Regions, not generally available in all commercial Regions as the claim says.\"}"
+      "raw_model_reply": "{\"page_id\": \"AWSPG-R04\", \"url\": \"https://aws.amazon.com/s3/features/vectors/\", \"captured_at\": \"2025-11-03T05:26:00Z\", \"quotes\": [\"Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.\", \"Amazon S3 Vectors is available in preview in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt), and Asia Pacific (Sydney) Regions.\"], \"why_this_page\": \"This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage and query, but says the service is in preview in five Regions, not generally available in all commercial Regions.\"}"
     },
     {
       "node": "fact_checker",
@@ -167,7 +173,7 @@
             "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
             "Amazon S3 Vectors is available in preview in the US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Frankfurt), and Asia Pacific (Sydney) Regions."
           ],
-          "why_this_page": "This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage but states the service is in preview in five Regions, not generally available in all commercial Regions as the claim says."
+          "why_this_page": "This is the only snapshot page for Amazon S3 Vectors; it describes native vector storage and query, but says the service is in preview in five Regions, not generally available in all commercial Regions."
         }
       },
       "rule_file": "confirm_rule.md",
@@ -177,61 +183,67 @@
         "check_2": "yes",
         "check_2_why": "All 2 quotes appear word for word on AWSPG-R04.",
         "check_3": "no",
-        "check_3_why": "Not backed by any quote: is generally available (status) (quote 2 says preview, a different status; no quote says generally available); in all commercial AWS Regions (scope) (quote 2 lists only five Regions, a narrower scope); similarity query support (quote 1 says query vectors but never mentions similarity; not backed strictly)",
+        "check_3_why": "Not backed by any quote: Status is generally available (no quote says generally available; quote 2 says preview); Available in all commercial AWS Regions (quote 2 lists only five preview Regions, a narrower scope)",
         "facts": [
           {
-            "fact": "Amazon S3 Vectors (the service)",
+            "fact": "Service is Amazon S3 Vectors",
             "backing_quote_number": 1,
             "backed": "yes",
             "why": "quote 1 names Amazon S3 Vectors",
+            "sentence": "",
             "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "is generally available (status)",
+            "fact": "Status is generally available",
             "backing_quote_number": 0,
             "backed": "no",
-            "why": "quote 2 says preview, a different status; no quote says generally available",
+            "why": "no quote says generally available; quote 2 says preview",
+            "sentence": "Amazon S3 Vectors is not generally available yet, because the AWS page says it is in preview.",
             "backing_quote": "none",
             "backed_by_researcher_quote": false
           },
           {
-            "fact": "in all commercial AWS Regions (scope)",
+            "fact": "Available in all commercial AWS Regions",
             "backing_quote_number": 0,
             "backed": "no",
-            "why": "quote 2 lists only five Regions, a narrower scope",
+            "why": "quote 2 lists only five preview Regions, a narrower scope",
+            "sentence": "Amazon S3 Vectors is not yet in all commercial AWS Regions, because the AWS page lists only five preview Regions.",
             "backing_quote": "none",
             "backed_by_researcher_quote": false
           },
           {
-            "fact": "native vector storage",
+            "fact": "Provides native vector storage",
             "backing_quote_number": 1,
             "backed": "yes",
             "why": "quote 1 says native support to store vectors",
+            "sentence": "",
             "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "similarity query support",
-            "backing_quote_number": 0,
-            "backed": "no",
-            "why": "quote 1 says query vectors but never mentions similarity; not backed strictly",
-            "backing_quote": "none",
-            "backed_by_researcher_quote": false
-          },
-          {
-            "fact": "for AI workloads",
+            "fact": "Provides similarity query support",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote 1 says for AI agents, AI inference, and semantic search",
+            "why": "quote 1 says native support to query vectors",
+            "sentence": "",
+            "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
+            "backed_by_researcher_quote": true
+          },
+          {
+            "fact": "Intended for AI workloads",
+            "backing_quote_number": 1,
+            "backed": "yes",
+            "why": "quote 1 says built for AI agents, AI inference, and semantic search",
+            "sentence": "",
             "backing_quote": "Amazon S3 Vectors is the first cloud object store with native support to store and query vectors, delivering purpose-built, cost-optimized vector storage for AI agents, AI inference, and semantic search.",
             "backed_by_researcher_quote": true
           }
         ],
         "verdict": "rejected",
-        "reason": "Check 3 failed: Not backed by any quote: is generally available (status) (quote 2 says preview, a different status; no quote says generally available); in all commercial AWS Regions (scope) (quote 2 lists only five Regions, a narrower scope); similarity query support (quote 1 says query vectors but never mentions similarity; not backed strictly)"
+        "reason": "Check 3 failed: Not backed by any quote: Status is generally available (no quote says generally available; quote 2 says preview); Available in all commercial AWS Regions (quote 2 lists only five preview Regions, a narrower scope)"
       },
-      "raw_model_reply": "{\"facts\": [{\"fact\": \"Amazon S3 Vectors (the service)\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 names Amazon S3 Vectors\"}, {\"fact\": \"is generally available (status)\", \"backing_quote_number\": 0, \"backed\": \"no\", \"why\": \"quote 2 says preview, a different status; no quote says generally available\"}, {\"fact\": \"in all commercial AWS Regions (scope)\", \"backing_quote_number\": 0, \"backed\": \"no\", \"why\": \"quote 2 lists only five Regions, a narrower scope\"}, {\"fact\": \"native vector storage\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 says native support to store vectors\"}, {\"fact\": \"similarity query support\", \"backing_quote_number\": 0, \"backed\": \"no\", \"why\": \"quote 1 says query vectors but never mentions similarity; not backed strictly\"}, {\"fact\": \"for AI workloads\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 says for AI agents, AI inference, and semantic search\"}], \"check_3_why\": \"The claim says S3 Vectors is generally available in all commercial Regions, but the quotes only show a preview in five Regions, so the status and scope facts are not backed.\"}"
+      "raw_model_reply": "{\"facts\": [{\"fact\": \"Service is Amazon S3 Vectors\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 names Amazon S3 Vectors\", \"sentence\": \"\"}, {\"fact\": \"Status is generally available\", \"backing_quote_number\": 0, \"backed\": \"no\", \"why\": \"no quote says generally available; quote 2 says preview\", \"sentence\": \"Amazon S3 Vectors is not generally available yet, because the AWS page says it is in preview.\"}, {\"fact\": \"Available in all commercial AWS Regions\", \"backing_quote_number\": 0, \"backed\": \"no\", \"why\": \"quote 2 lists only five preview Regions, a narrower scope\", \"sentence\": \"Amazon S3 Vectors is not yet in all commercial AWS Regions, because the AWS page lists only five preview Regions.\"}, {\"fact\": \"Provides native vector storage\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 says native support to store vectors\", \"sentence\": \"\"}, {\"fact\": \"Provides similarity query support\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 says native support to query vectors\", \"sentence\": \"\"}, {\"fact\": \"Intended for AI workloads\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote 1 says built for AI agents, AI inference, and semantic search\", \"sentence\": \"\"}], \"check_3_why\": \"The claim says generally available in all commercial Regions, but the AWS page says preview in five Regions, so those facts are not backed.\"}"
     }
   ]
 }

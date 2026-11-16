@@ -1,9 +1,9 @@
 {
   "candidate_id": "RIV-HO-02",
   "model": "anthropic/claude-haiku-5.5",
-  "run_id": "ddb625ef-c8cb-4ca2-a6ca-1393a0754681",
-  "started_at": "2026-11-16T11:48:58.667932+00:00",
-  "trace_url": "https://smith.langchain.com/public/7b92e4ee-2aab-4c3a-8b3c-808f0a539451/r",
+  "run_id": "a68622d0-aee3-46bb-a014-82a87af8c25a",
+  "started_at": "2026-11-16T11:53:05.686191+00:00",
+  "trace_url": "https://smith.langchain.com/public/09864277-9331-4e3f-80fd-d2108b425fee/r",
   "claim": {
     "candidate_id": "RIV-HO-02",
     "claim_text": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, supporting long-running agent tasks and complex coding workloads for enterprise builders.",
@@ -16,7 +16,7 @@
     "quotes": [
       "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders."
     ],
-    "why_this_page": "This page's service_name is Amazon Bedrock and its body text states the claim's exact facts: Claude Sonnet 4.5 availability in Amazon Bedrock for long-running agent tasks and complex coding workloads for enterprise builders."
+    "why_this_page": "This page is titled Anthropic's Claude in Amazon Bedrock, has service_name Amazon Bedrock, and its body text states the claim's facts about Claude Sonnet 4.5 availability in Bedrock for long-running agent tasks and complex coding for enterprise builders."
   },
   "quote_check": {
     "url_matches_page_id": true,
@@ -35,59 +35,65 @@
     "check_2": "yes",
     "check_2_why": "All 1 quotes appear word for word on AWSPG-R08.",
     "check_3": "yes",
-    "check_3_why": "Every fact in the claim is stated in quote 1, so all facts are backed.",
+    "check_3_why": "Every fact in the claim is stated in quote 1 with the same meaning, so check 3 passes.",
     "facts": [
       {
-        "fact": "Anthropic is the provider of Claude Sonnet 4.5",
+        "fact": "Anthropic's Claude Sonnet 4.5 is the model",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote names Anthropic's Claude Sonnet 4.5",
+        "why": "quote names Anthropic's Claude Sonnet 4.5 as the subject",
+        "sentence": "",
         "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "Claude Sonnet 4.5 is now available (current status)",
+        "fact": "The model is now available (current status)",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote says is now available",
+        "why": "quote says 'is now available'",
+        "sentence": "",
         "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "Location is Amazon Bedrock",
+        "fact": "The place is Amazon Bedrock",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote says available in Amazon Bedrock",
+        "why": "quote says 'in Amazon Bedrock'",
+        "sentence": "",
         "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "Supports long-running agent tasks",
+        "fact": "It supports long-running agent tasks",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote says with support for long-running agent tasks",
+        "why": "quote says 'with support for long-running agent tasks'",
+        "sentence": "",
         "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "Supports complex coding workloads",
+        "fact": "It supports complex coding workloads",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote says complex coding workloads in the same support clause",
+        "why": "quote says 'complex coding workloads'",
+        "sentence": "",
         "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "Intended audience is enterprise builders",
+        "fact": "The audience is enterprise builders",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote says for enterprise builders",
+        "why": "quote says 'for enterprise builders'",
+        "sentence": "",
         "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
         "backed_by_researcher_quote": true
       }
     ],
     "verdict": "confirmed",
-    "reason": "All three checks passed: Every fact in the claim is stated in quote 1, so all facts are backed."
+    "reason": "All three checks passed: Every fact in the claim is stated in quote 1 with the same meaning, so check 3 passes."
   },
   "log": [
     {
@@ -126,7 +132,7 @@
         "quotes": [
           "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders."
         ],
-        "why_this_page": "This page's service_name is Amazon Bedrock and its body text states the claim's exact facts: Claude Sonnet 4.5 availability in Amazon Bedrock for long-running agent tasks and complex coding workloads for enterprise builders."
+        "why_this_page": "This page is titled Anthropic's Claude in Amazon Bedrock, has service_name Amazon Bedrock, and its body text states the claim's facts about Claude Sonnet 4.5 availability in Bedrock for long-running agent tasks and complex coding for enterprise builders."
       },
       "quote_check_by_code": {
         "url_matches_page_id": true,
@@ -139,7 +145,7 @@
         ],
         "all_quotes_match": true
       },
-      "raw_model_reply": "{\"page_id\": \"AWSPG-R08\", \"url\": \"https://aws.amazon.com/bedrock/anthropic/\", \"captured_at\": \"2025-11-03T05:55:00Z\", \"quotes\": [\"Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.\"], \"why_this_page\": \"This page's service_name is Amazon Bedrock and its body text states the claim's exact facts: Claude Sonnet 4.5 availability in Amazon Bedrock for long-running agent tasks and complex coding workloads for enterprise builders.\"}"
+      "raw_model_reply": "{\"page_id\": \"AWSPG-R08\", \"url\": \"https://aws.amazon.com/bedrock/anthropic/\", \"captured_at\": \"2025-11-03T05:55:00Z\", \"quotes\": [\"Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.\"], \"why_this_page\": \"This page is titled Anthropic's Claude in Amazon Bedrock, has service_name Amazon Bedrock, and its body text states the claim's facts about Claude Sonnet 4.5 availability in Bedrock for long-running agent tasks and complex coding for enterprise builders.\"}"
     },
     {
       "node": "fact_checker",
@@ -156,7 +162,7 @@
           "quotes": [
             "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders."
           ],
-          "why_this_page": "This page's service_name is Amazon Bedrock and its body text states the claim's exact facts: Claude Sonnet 4.5 availability in Amazon Bedrock for long-running agent tasks and complex coding workloads for enterprise builders."
+          "why_this_page": "This page is titled Anthropic's Claude in Amazon Bedrock, has service_name Amazon Bedrock, and its body text states the claim's facts about Claude Sonnet 4.5 availability in Bedrock for long-running agent tasks and complex coding for enterprise builders."
         }
       },
       "rule_file": "confirm_rule.md",
@@ -166,61 +172,67 @@
         "check_2": "yes",
         "check_2_why": "All 1 quotes appear word for word on AWSPG-R08.",
         "check_3": "yes",
-        "check_3_why": "Every fact in the claim is stated in quote 1, so all facts are backed.",
+        "check_3_why": "Every fact in the claim is stated in quote 1 with the same meaning, so check 3 passes.",
         "facts": [
           {
-            "fact": "Anthropic is the provider of Claude Sonnet 4.5",
+            "fact": "Anthropic's Claude Sonnet 4.5 is the model",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote names Anthropic's Claude Sonnet 4.5",
+            "why": "quote names Anthropic's Claude Sonnet 4.5 as the subject",
+            "sentence": "",
             "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "Claude Sonnet 4.5 is now available (current status)",
+            "fact": "The model is now available (current status)",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote says is now available",
+            "why": "quote says 'is now available'",
+            "sentence": "",
             "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "Location is Amazon Bedrock",
+            "fact": "The place is Amazon Bedrock",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote says available in Amazon Bedrock",
+            "why": "quote says 'in Amazon Bedrock'",
+            "sentence": "",
             "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "Supports long-running agent tasks",
+            "fact": "It supports long-running agent tasks",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote says with support for long-running agent tasks",
+            "why": "quote says 'with support for long-running agent tasks'",
+            "sentence": "",
             "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "Supports complex coding workloads",
+            "fact": "It supports complex coding workloads",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote says complex coding workloads in the same support clause",
+            "why": "quote says 'complex coding workloads'",
+            "sentence": "",
             "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "Intended audience is enterprise builders",
+            "fact": "The audience is enterprise builders",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote says for enterprise builders",
+            "why": "quote says 'for enterprise builders'",
+            "sentence": "",
             "backing_quote": "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders.",
             "backed_by_researcher_quote": true
           }
         ],
         "verdict": "confirmed",
-        "reason": "All three checks passed: Every fact in the claim is stated in quote 1, so all facts are backed."
+        "reason": "All three checks passed: Every fact in the claim is stated in quote 1 with the same meaning, so check 3 passes."
       },
-      "raw_model_reply": "{\"facts\": [{\"fact\": \"Anthropic is the provider of Claude Sonnet 4.5\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote names Anthropic's Claude Sonnet 4.5\"}, {\"fact\": \"Claude Sonnet 4.5 is now available (current status)\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says is now available\"}, {\"fact\": \"Location is Amazon Bedrock\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says available in Amazon Bedrock\"}, {\"fact\": \"Supports long-running agent tasks\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says with support for long-running agent tasks\"}, {\"fact\": \"Supports complex coding workloads\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says complex coding workloads in the same support clause\"}, {\"fact\": \"Intended audience is enterprise builders\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says for enterprise builders\"}], \"check_3_why\": \"Every fact in the claim is stated in quote 1, so all facts are backed.\"}"
+      "raw_model_reply": "{\"facts\": [{\"fact\": \"Anthropic's Claude Sonnet 4.5 is the model\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote names Anthropic's Claude Sonnet 4.5 as the subject\", \"sentence\": \"\"}, {\"fact\": \"The model is now available (current status)\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says 'is now available'\", \"sentence\": \"\"}, {\"fact\": \"The place is Amazon Bedrock\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says 'in Amazon Bedrock'\", \"sentence\": \"\"}, {\"fact\": \"It supports long-running agent tasks\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says 'with support for long-running agent tasks'\", \"sentence\": \"\"}, {\"fact\": \"It supports complex coding workloads\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says 'complex coding workloads'\", \"sentence\": \"\"}, {\"fact\": \"The audience is enterprise builders\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says 'for enterprise builders'\", \"sentence\": \"\"}], \"check_3_why\": \"Every fact in the claim is stated in quote 1 with the same meaning, so check 3 passes.\"}"
     }
   ]
 }

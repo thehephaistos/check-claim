@@ -162,8 +162,12 @@ A quote does NOT back a fact if it states a different status or stage, a narrowe
 or does not mention that detail at all.
 
 Reply with only this JSON:
+For every fact that is not backed, also write "sentence": one short plain sentence a solutions architect
+could say to a customer, stating what the claim says and what the AWS page says instead.
+No labels, tags, brackets or quote numbers. For a backed fact, "sentence" is "".
+
 {"facts": [{"fact": "<fact from the claim>", "backing_quote_number": <number, or 0>,
-            "backed": "yes" or "no", "why": "<a few words>"}],
+            "backed": "yes" or "no", "why": "<a few words>", "sentence": "<plain sentence, or empty>"}],
  "check_3_why": "<one line>"}"""
 
 
@@ -330,6 +334,9 @@ def readable_reason(record):
         return re.sub(r"\b[Qq]uote (\d+)", sub, text).strip().rstrip(".")
 
     unbacked = [f for f in checks.get("facts", []) if f.get("backed") != "yes"]
+    sentences = [str(f.get("sentence", "")).strip() for f in unbacked]
+    if unbacked and all(sentences):  # the fact-checker's plain sentence for each failed fact
+        return " ".join(x if x.endswith(".") else x + "." for x in sentences)
     if not unbacked:
         return resolve(checks.get("check_3_why", "The AWS page does not back the claim")) + "."
     return "The AWS page does not back " + "; ".join(

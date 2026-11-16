@@ -1,12 +1,12 @@
-[2026-11-16T11:48:58.667Z] RIV-HO-01: confirmed | page AWSPG-R07 | quotes match: True
-[2026-11-16T11:49:03.441Z] RIV-HO-02: confirmed | page AWSPG-R08 | quotes match: True
-[2026-11-16T11:49:07.911Z] RIV-HO-03: confirmed | page AWSPG-R09 | quotes match: True
-[2026-11-16T11:49:14.881Z] RIV-HO-04: rejected | page AWSPG-R04 | quotes match: True
-[2026-11-16T11:49:17.751Z] RIV-HO-05: rejected | page no match | quotes match: no match
-[2026-11-16T11:49:21.124Z] Wrote final/results.md and 5 logs in final/logs
-[2026-11-16T11:49:21.126Z] PASSED: safety gate; 3 confirmed, 2 rejected -> final/briefing_lists.json
-[2026-11-16T11:49:21.126Z] $ python -m pytest tests/test_safety.py -v
-[2026-11-16T11:49:22.280Z] tests/test_safety.py::test_confirmed_list PASSED                         [ 50%]
-[2026-11-16T11:49:22.280Z] tests/test_safety.py::test_rejected_list PASSED                          [100%]
-[2026-11-16T11:49:22.280Z] ============================== 2 passed in 0.46s ===============================
-[2026-11-16T11:49:22.281Z] Built briefing.html: 5 items (3 confirmed, 2 rejected)
+[2026-11-16T11:53:05.685Z] RIV-HO-01: confirmed | page AWSPG-R07 | quotes match: True
+[2026-11-16T11:53:10.236Z] RIV-HO-02: confirmed | page AWSPG-R08 | quotes match: True
+[2026-11-16T11:53:14.523Z] RIV-HO-03: confirmed | page AWSPG-R09 | quotes match: True
+[2026-11-16T11:53:30.436Z] RIV-HO-04: rejected | page AWSPG-R04 | quotes match: True
+[2026-11-16T11:53:33.068Z] RIV-HO-05: rejected | page no match | quotes match: no match
+[2026-11-16T11:53:37.603Z] Wrote final/results.md and 5 logs in final/logs
+[2026-11-16T11:53:37.605Z] PASSED: safety gate; 3 confirmed, 2 rejected -> final/briefing_lists.json
+[2026-11-16T11:53:37.605Z] $ python -m pytest tests/test_safety.py -v
+[2026-11-16T11:53:38.620Z] tests/test_safety.py::test_confirmed_list PASSED                         [ 50%]
+[2026-11-16T11:53:38.620Z] tests/test_safety.py::test_rejected_list PASSED                          [100%]
+[2026-11-16T11:53:38.620Z] ============================== 2 passed in 0.40s ===============================
+[2026-11-16T11:53:38.620Z] Built briefing.html: 5 items (3 confirmed, 2 rejected)

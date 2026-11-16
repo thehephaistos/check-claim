@@ -1,9 +1,9 @@
 {
   "candidate_id": "RIV-HO-03",
   "model": "anthropic/claude-haiku-5.5",
-  "run_id": "22a692ae-f15c-4c6c-a5bb-867bb15e3fc1",
-  "started_at": "2026-11-16T11:49:03.441241+00:00",
-  "trace_url": "https://smith.langchain.com/public/3d1986d8-7cff-4116-a779-d8ebbe1f7f15/r",
+  "run_id": "3c5497cf-5e31-4831-8a1f-43f429bbeb31",
+  "started_at": "2026-11-16T11:53:10.236848+00:00",
+  "trace_url": "https://smith.langchain.com/public/cc9974ab-3a76-4307-a6ac-97fab51f05d5/r",
   "claim": {
     "candidate_id": "RIV-HO-03",
     "claim_text": "Starting 15 July 2025 new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key services.",
@@ -16,7 +16,7 @@
     "quotes": [
       "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services."
     ],
-    "why_this_page": "The AWS Free Tier product page (AWSPG-R09) states the claimed $100 sign-up credits and up to $100 more for exploring key services starting July 15, 2025."
+    "why_this_page": "The AWS Free Tier product page (AWSPG-R09) states the claimed credit offer and start date for the claimed service."
   },
   "quote_check": {
     "url_matches_page_id": true,
@@ -35,59 +35,47 @@
     "check_2": "yes",
     "check_2_why": "All 1 quotes appear word for word on AWSPG-R09.",
     "check_3": "yes",
-    "check_3_why": "Every fact in the claim is stated in quote 1, which matches the claim's date, recipients, credit amounts, timing and earning route.",
+    "check_3_why": "Every fact in the claim is stated in the same meaning by quote 1, with no change of status, scope or detail.",
     "facts": [
       {
-        "fact": "Starting 15 July 2025",
+        "fact": "The offer applies to new AWS customers",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote states Starting July 15, 2025",
+        "why": "quote says new AWS customers",
+        "sentence": "",
         "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "new AWS customers",
+        "fact": "The offer starts on 15 July 2025",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote names new AWS customers as recipients",
+        "why": "quote says starting July 15, 2025",
+        "sentence": "",
         "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "receive $100 in AWS Free Tier credits",
+        "fact": "New customers receive $100 in AWS Free Tier credits at sign-up",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote states $100 in AWS Free Tier credits",
+        "why": "quote says $100 in Free Tier credits at sign-up",
+        "sentence": "",
         "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
         "backed_by_researcher_quote": true
       },
       {
-        "fact": "at sign-up",
+        "fact": "Customers can earn up to $100 more by exploring key services",
         "backing_quote_number": 1,
         "backed": "yes",
-        "why": "quote states the credits are received at sign-up",
-        "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
-        "backed_by_researcher_quote": true
-      },
-      {
-        "fact": "can earn up to $100 more",
-        "backing_quote_number": 1,
-        "backed": "yes",
-        "why": "quote states up to $100 more can be earned",
-        "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
-        "backed_by_researcher_quote": true
-      },
-      {
-        "fact": "by exploring key services",
-        "backing_quote_number": 1,
-        "backed": "yes",
-        "why": "quote says exploring key AWS services, same meaning",
+        "why": "quote says up to $100 more by exploring key AWS services",
+        "sentence": "",
         "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
         "backed_by_researcher_quote": true
       }
     ],
     "verdict": "confirmed",
-    "reason": "All three checks passed: Every fact in the claim is stated in quote 1, which matches the claim's date, recipients, credit amounts, timing and earning route."
+    "reason": "All three checks passed: Every fact in the claim is stated in the same meaning by quote 1, with no change of status, scope or detail."
   },
   "log": [
     {
@@ -126,7 +114,7 @@
         "quotes": [
           "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services."
         ],
-        "why_this_page": "The AWS Free Tier product page (AWSPG-R09) states the claimed $100 sign-up credits and up to $100 more for exploring key services starting July 15, 2025."
+        "why_this_page": "The AWS Free Tier product page (AWSPG-R09) states the claimed credit offer and start date for the claimed service."
       },
       "quote_check_by_code": {
         "url_matches_page_id": true,
@@ -139,7 +127,7 @@
         ],
         "all_quotes_match": true
       },
-      "raw_model_reply": "{\"page_id\": \"AWSPG-R09\", \"url\": \"https://aws.amazon.com/free/\", \"captured_at\": \"2025-11-03T06:02:00Z\", \"quotes\": [\"Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.\"], \"why_this_page\": \"The AWS Free Tier product page (AWSPG-R09) states the claimed $100 sign-up credits and up to $100 more for exploring key services starting July 15, 2025.\"}"
+      "raw_model_reply": "{\"page_id\": \"AWSPG-R09\", \"url\": \"https://aws.amazon.com/free/\", \"captured_at\": \"2025-11-03T06:02:00Z\", \"quotes\": [\"Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.\"], \"why_this_page\": \"The AWS Free Tier product page (AWSPG-R09) states the claimed credit offer and start date for the claimed service.\"}"
     },
     {
       "node": "fact_checker",
@@ -156,7 +144,7 @@
           "quotes": [
             "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services."
           ],
-          "why_this_page": "The AWS Free Tier product page (AWSPG-R09) states the claimed $100 sign-up credits and up to $100 more for exploring key services starting July 15, 2025."
+          "why_this_page": "The AWS Free Tier product page (AWSPG-R09) states the claimed credit offer and start date for the claimed service."
         }
       },
       "rule_file": "confirm_rule.md",
@@ -166,61 +154,49 @@
         "check_2": "yes",
         "check_2_why": "All 1 quotes appear word for word on AWSPG-R09.",
         "check_3": "yes",
-        "check_3_why": "Every fact in the claim is stated in quote 1, which matches the claim's date, recipients, credit amounts, timing and earning route.",
+        "check_3_why": "Every fact in the claim is stated in the same meaning by quote 1, with no change of status, scope or detail.",
         "facts": [
           {
-            "fact": "Starting 15 July 2025",
+            "fact": "The offer applies to new AWS customers",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote states Starting July 15, 2025",
+            "why": "quote says new AWS customers",
+            "sentence": "",
             "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "new AWS customers",
+            "fact": "The offer starts on 15 July 2025",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote names new AWS customers as recipients",
+            "why": "quote says starting July 15, 2025",
+            "sentence": "",
             "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "receive $100 in AWS Free Tier credits",
+            "fact": "New customers receive $100 in AWS Free Tier credits at sign-up",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote states $100 in AWS Free Tier credits",
+            "why": "quote says $100 in Free Tier credits at sign-up",
+            "sentence": "",
             "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
             "backed_by_researcher_quote": true
           },
           {
-            "fact": "at sign-up",
+            "fact": "Customers can earn up to $100 more by exploring key services",
             "backing_quote_number": 1,
             "backed": "yes",
-            "why": "quote states the credits are received at sign-up",
-            "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
-            "backed_by_researcher_quote": true
-          },
-          {
-            "fact": "can earn up to $100 more",
-            "backing_quote_number": 1,
-            "backed": "yes",
-            "why": "quote states up to $100 more can be earned",
-            "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
-            "backed_by_researcher_quote": true
-          },
-          {
-            "fact": "by exploring key services",
-            "backing_quote_number": 1,
-            "backed": "yes",
-            "why": "quote says exploring key AWS services, same meaning",
+            "why": "quote says up to $100 more by exploring key AWS services",
+            "sentence": "",
             "backing_quote": "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services.",
             "backed_by_researcher_quote": true
           }
         ],
         "verdict": "confirmed",
-        "reason": "All three checks passed: Every fact in the claim is stated in quote 1, which matches the claim's date, recipients, credit amounts, timing and earning route."
+        "reason": "All three checks passed: Every fact in the claim is stated in the same meaning by quote 1, with no change of status, scope or detail."
       },
-      "raw_model_reply": "{\"facts\": [{\"fact\": \"Starting 15 July 2025\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote states Starting July 15, 2025\"}, {\"fact\": \"new AWS customers\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote names new AWS customers as recipients\"}, {\"fact\": \"receive $100 in AWS Free Tier credits\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote states $100 in AWS Free Tier credits\"}, {\"fact\": \"at sign-up\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote states the credits are received at sign-up\"}, {\"fact\": \"can earn up to $100 more\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote states up to $100 more can be earned\"}, {\"fact\": \"by exploring key services\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says exploring key AWS services, same meaning\"}], \"check_3_why\": \"Every fact in the claim is stated in quote 1, which matches the claim's date, recipients, credit amounts, timing and earning route.\"}"
+      "raw_model_reply": "{\"facts\": [{\"fact\": \"The offer applies to new AWS customers\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says new AWS customers\", \"sentence\": \"\"}, {\"fact\": \"The offer starts on 15 July 2025\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says starting July 15, 2025\", \"sentence\": \"\"}, {\"fact\": \"New customers receive $100 in AWS Free Tier credits at sign-up\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says $100 in Free Tier credits at sign-up\", \"sentence\": \"\"}, {\"fact\": \"Customers can earn up to $100 more by exploring key services\", \"backing_quote_number\": 1, \"backed\": \"yes\", \"why\": \"quote says up to $100 more by exploring key AWS services\", \"sentence\": \"\"}], \"check_3_why\": \"Every fact in the claim is stated in the same meaning by quote 1, with no change of status, scope or detail.\"}"
     }
   ]
 }

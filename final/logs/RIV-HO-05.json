@@ -1,0 +1,108 @@
+{
+  "candidate_id": "RIV-HO-05",
+  "model": "anthropic/claude-haiku-5.5",
+  "run_id": "8086f323-b19a-4b9c-8925-16825210d69c",
+  "started_at": "2026-11-16T11:21:31.162186+00:00",
+  "trace_url": "https://smith.langchain.com/public/7baecc98-7bdf-41db-96eb-423e19ae2085/r",
+  "claim": {
+    "candidate_id": "RIV-HO-05",
+    "claim_text": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
+    "claimed_service": "AWS Lambda"
+  },
+  "evidence": {
+    "page_id": "no match",
+    "url": "no match",
+    "captured_at": "no match",
+    "quotes": [],
+    "why_this_page": "The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout."
+  },
+  "quote_check": {
+    "all_quotes_match": "no match",
+    "quotes": []
+  },
+  "checks": {
+    "check_1": "no",
+    "check_1_why": "No snapshot page was cited (page_id: no match).",
+    "check_2": "no",
+    "check_2_why": "There are no quotes from a snapshot page.",
+    "check_3": "no",
+    "check_3_why": "There are no quotes to back the claim's facts.",
+    "facts": [],
+    "verdict": "rejected",
+    "reason": "Check 1 failed: No snapshot page was cited (page_id: no match)."
+  },
+  "log": [
+    {
+      "node": "lead",
+      "got": {
+        "candidate_id": "RIV-HO-05"
+      },
+      "csv_row": {
+        "candidate_id": "RIV-HO-05",
+        "claim_text": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
+        "claimed_service": "AWS Lambda",
+        "claim_type": "new_feature",
+        "origin_source_name": "r/aws community thread",
+        "origin_source_url": "https://www.reddit.com/r/aws/",
+        "origin_source_type": "community_forum",
+        "origin_published_date": "2025-11-01",
+        "collected_at": "2025-11-03T07:16:00Z"
+      },
+      "gave_researcher": {
+        "candidate_id": "RIV-HO-05",
+        "claim_text": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
+        "claimed_service": "AWS Lambda"
+      }
+    },
+    {
+      "node": "researcher",
+      "got": {
+        "candidate_id": "RIV-HO-05",
+        "claim_text": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
+        "claimed_service": "AWS Lambda"
+      },
+      "gave_fact_checker": {
+        "page_id": "no match",
+        "url": "no match",
+        "captured_at": "no match",
+        "quotes": [],
+        "why_this_page": "The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout."
+      },
+      "quote_check_by_code": {
+        "all_quotes_match": "no match",
+        "quotes": []
+      },
+      "raw_model_reply": "{\"page_id\": \"no match\", \"url\": \"no match\", \"captured_at\": \"no match\", \"quotes\": [], \"why_this_page\": \"The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout.\"}"
+    },
+    {
+      "node": "fact_checker",
+      "got": {
+        "claim": {
+          "candidate_id": "RIV-HO-05",
+          "claim_text": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
+          "claimed_service": "AWS Lambda"
+        },
+        "evidence": {
+          "page_id": "no match",
+          "url": "no match",
+          "captured_at": "no match",
+          "quotes": [],
+          "why_this_page": "The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout."
+        }
+      },
+      "rule_file": "confirm_rule.md",
+      "gave": {
+        "check_1": "no",
+        "check_1_why": "No snapshot page was cited (page_id: no match).",
+        "check_2": "no",
+        "check_2_why": "There are no quotes from a snapshot page.",
+        "check_3": "no",
+        "check_3_why": "There are no quotes to back the claim's facts.",
+        "facts": [],
+        "verdict": "rejected",
+        "reason": "Check 1 failed: No snapshot page was cited (page_id: no match)."
+      },
+      "raw_model_reply": null
+    }
+  ]
+}

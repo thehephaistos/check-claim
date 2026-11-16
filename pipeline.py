@@ -9,8 +9,11 @@ Inputs:  data/aws_reinvent_candidate_items.csv   (the claims)
 All keys and the model id are read from .env -- nothing is typed in here.
 """
 import csv
+import html as html_lib
 import json
 import os
+import re
+import subprocess
 import sys
 import time
 import uuid
@@ -36,11 +39,14 @@ for name in ("LANGSMITH_API_KEY", "LANGSMITH_PROJECT"):
     if not os.environ.get(name):
         sys.exit(f"Missing {name} in .env")
 
-CANDIDATES_CSV = os.path.join(ROOT, "data", "aws_reinvent_candidate_items.csv")
-SNAPSHOT_JSON = os.path.join(ROOT, "data", "aws_official_source_snapshot.json")
+# The batch, snapshot and output folder can be changed with environment variables.
+CANDIDATES_CSV = os.path.join(ROOT, os.environ.get("CANDIDATES_CSV", "data/aws_reinvent_candidate_items_holdout.csv"))
+SNAPSHOT_JSON = os.path.join(ROOT, os.environ.get("SNAPSHOT_JSON", "data/aws_official_source_snapshot_refresh.json"))
 RULE_FILE = os.path.join(ROOT, "confirm_rule.md")
-LOG_DIR = os.path.join(ROOT, "logs")
-RESULTS_MD = os.path.join(ROOT, "results.md")
+OUT_DIR = os.path.join(ROOT, os.environ.get("OUT_DIR", "final"))
+LOG_DIR = os.path.join(OUT_DIR, "logs")
+RESULTS_MD = os.path.join(OUT_DIR, "results.md")
+BRIEFING_HTML = os.path.join(ROOT, "briefing.html")
 NO_MATCH = "no match"
 
 client = wrap_openai(
@@ -64,7 +70,7 @@ def ask_json(system, user):
                 {"role": "user", "content": user}]
     for attempt in range(3):
         response = client.chat.completions.create(model=MODEL_ID, max_tokens=1000, messages=messages)
-        text = response.choices[0].message.content
+        text = response.choices[0].message.content or ""  # an empty reply is retried like bad JSON
         try:
             return json.loads(text[text.find("{"): text.rfind("}") + 1]), text
         except json.JSONDecodeError as err:
@@ -141,16 +147,16 @@ def researcher(state):
 # verdict is computed from the three answers: confirmed only if all are yes.
 FACT_CHECKER_FORMAT = """Answer check 3 only. Split the claim into every separate fact it states
 (the service, what happened or its status, where, and any other detail).
-For each fact, give the one quote from the researcher's list that backs it, copied exactly,
-or "none" if no quote states that fact. A quote that is only related or background does not back a fact.
+For each fact, give the number of the one quote in the researcher's numbered list that backs it,
+or 0 if no quote states that fact. A quote that is only related or background does not back a fact.
 "Backed" means the quote states the same fact in meaning; the claim may use different words with the
 same meaning. Word-for-word copying applies to the quotes, which is check 2, not to the claim's wording.
 A quote does NOT back a fact if it states a different status or stage, a narrower place or scope,
 or does not mention that detail at all.
 
 Reply with only this JSON:
-{"facts": [{"fact": "<fact from the claim>", "backing_quote": "<exact quote> or none",
-            "backed": "yes" or "no", "why": "<one line>"}],
+{"facts": [{"fact": "<fact from the claim>", "backing_quote_number": <number, or 0>,
+            "backed": "yes" or "no", "why": "<a few words>"}],
  "check_3_why": "<one line>"}"""
 
 
@@ -192,13 +198,16 @@ def fact_checker(state):
         system = ("You are the fact-checker. Follow this rule card exactly. Use only the researcher's "
                   "quotes; never use your own knowledge.\n\n" + rule + "\n\n" + FACT_CHECKER_FORMAT)
         user = (f"Claim:\n{state['claim']['claim_text']}\n\n"
-                f"Researcher's quotes:\n{json.dumps(evidence['quotes'], indent=2)}")
+                "Researcher's quotes:\n" + "\n".join(f"{n}. {q}" for n, q in enumerate(evidence["quotes"], 1)))
         answer, raw = ask_json(system, user)
         facts = answer.get("facts", [])
         check_3_why = answer.get("check_3_why", "")
     # Every fact must be backed by a quote that really is one of the researcher's quotes.
+    quotes = evidence.get("quotes", [])
     for fact in facts:
-        fact["backed_by_researcher_quote"] = fact.get("backing_quote") in evidence.get("quotes", [])
+        n = fact.get("backing_quote_number")
+        fact["backing_quote"] = quotes[n - 1] if isinstance(n, int) and 1 <= n <= len(quotes) else "none"
+        fact["backed_by_researcher_quote"] = fact["backing_quote"] in quotes
     backed = bool(facts) and all(
         f.get("backed") == "yes" and f["backed_by_researcher_quote"] for f in facts)
     check_3 = "yes" if backed else "no"
@@ -254,7 +263,7 @@ def write_results(rows):
         "# Results",
         "",
         f"Pipeline: `pipeline.py` (LangGraph: lead -> researcher -> fact_checker), model `{MODEL_ID}` via OpenRouter. "
-        "The fact-checker's rule is read from `confirm_rule.md`. Sources: `data/aws_official_source_snapshot.json`. "
+        f"The fact-checker's rule is read from `confirm_rule.md`. Sources: `{os.path.relpath(SNAPSHOT_JSON, ROOT)}`. "
         "\"Quotes match snapshot\" is checked by code, not by the model: every quote must appear word for word "
         "in that page's body_text.",
         "",
@@ -277,7 +286,7 @@ def write_results(rows):
 
 
 # --- Lead's last step: sort results into confirmed and rejected lists -------
-LISTS_JSON = os.path.join(ROOT, "briefing_lists.json")
+LISTS_JSON = os.path.join(OUT_DIR, "briefing_lists.json")
 PUBLIC_TRACE_PREFIX = "https://smith.langchain.com/public/"
 
 
@@ -344,7 +353,86 @@ def build_lists():
         sys.exit(1)
     with open(LISTS_JSON, "w", encoding="utf-8") as f:
         json.dump({"confirmed": confirmed, "rejected": rejected}, f, indent=2, ensure_ascii=False)
-    print(f"PASSED: safety gate; {len(confirmed)} confirmed, {len(rejected)} rejected -> {LISTS_JSON}")
+    print(f"PASSED: safety gate; {len(confirmed)} confirmed, {len(rejected)} rejected -> {os.path.relpath(LISTS_JSON, ROOT)}")
+
+
+def run_safety_tests():
+    """Run the pytest safety checks; stop before the page is built if any fails."""
+    print("$ python -m pytest tests/test_safety.py -v")
+    test = subprocess.run([sys.executable, "-m", "pytest", "tests/test_safety.py", "-v", "-p", "no:warnings"],
+                          cwd=ROOT, capture_output=True, text=True)
+    print("\n".join(l for l in test.stdout.splitlines() if "::" in l or "passed" in l or "failed" in l))
+    if test.returncode != 0:
+        print("STOPPED: safety checks failed; briefing.html not built.")
+        sys.exit(1)
+
+
+def plain_reason(reason):
+    """The fact-checker's reason without the check number, for a reader of the briefing."""
+    if "No snapshot page was cited" in reason:
+        return "No official AWS page states this claim."
+    return re.sub(r"^Check \d failed:\s*", "", reason)
+
+
+def build_page():
+    """Write briefing.html from the lists that passed the safety gate."""
+    with open(LISTS_JSON, encoding="utf-8") as f:
+        lists = json.load(f)
+    items = sorted([dict(i, status="confirmed") for i in lists["confirmed"]] +
+                   [dict(i, status="rejected") for i in lists["rejected"]], key=lambda i: i["candidate_id"])
+    cards = []
+    for i in items:
+        if i["status"] == "confirmed":
+            body = (f'<p class="src">Source: <a href="{esc(i["url"])}">{esc(i["url"])}</a></p>'
+                    + "".join(f"<blockquote>{esc(q)}</blockquote>" for q in i["quotes"]))
+        else:
+            body = f'<p class="reason"><strong>Why rejected:</strong> {esc(plain_reason(i["reason"]))}</p>'
+        cards.append(
+            f'<article class="{i["status"]}"><header><span class="badge">{i["status"].capitalize()}</span>'
+            f'<span class="id">{esc(i["candidate_id"])}</span></header>'
+            f'<p class="claim">{esc(i["claim"])}</p>{body}'
+            f'<p class="trace"><a href="{esc(i["trace_url"])}">How this was judged (LangSmith trace)</a></p></article>')
+    built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    n_ok = len(lists["confirmed"])
+    html = PAGE_TEMPLATE.format(cards="\n".join(cards), built=built, n_ok=n_ok,
+                                n_no=len(items) - n_ok, snapshot=esc(os.path.basename(SNAPSHOT_JSON)))
+    with open(BRIEFING_HTML, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Built {os.path.relpath(BRIEFING_HTML, ROOT)}: {len(items)} items ({n_ok} confirmed, {len(items) - n_ok} rejected)")
+
+
+def esc(text):
+    return html_lib.escape(str(text))
+
+
+PAGE_TEMPLATE = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>re:Invent Launch Briefing</title>
+<style>
+:root {{ --bg:#f7f7f5; --card:#fff; --ink:#1d1d1f; --muted:#5f6368; --line:#e3e3e0;
+  --ok:#0b6b3a; --ok-bg:#e3f4ea; --no:#9b1c1c; --no-bg:#fbe7e7; --link:#0b57d0; }}
+@media (prefers-color-scheme: dark) {{ :root {{ --bg:#121214; --card:#1c1c1f; --ink:#ececec; --muted:#a0a0a8;
+  --line:#2e2e33; --ok:#7fd8a4; --ok-bg:#183626; --no:#f2a3a3; --no-bg:#3a1c1c; --link:#8ab4f8; }} }}
+body {{ margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 system-ui, -apple-system, sans-serif; }}
+main {{ max-width:760px; margin:0 auto; padding:32px 16px 48px; }}
+h1 {{ font-size:1.6rem; margin:0 0 4px; }} .sub {{ color:var(--muted); margin:0 0 24px; }}
+article {{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin:0 0 14px; }}
+header {{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }}
+.badge {{ font-size:.78rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:3px 9px; border-radius:999px; }}
+.confirmed .badge {{ color:var(--ok); background:var(--ok-bg); }} .rejected .badge {{ color:var(--no); background:var(--no-bg); }}
+.id {{ color:var(--muted); font-size:.85rem; }} .claim {{ font-weight:600; margin:4px 0 10px; }}
+blockquote {{ margin:8px 0; padding:6px 12px; border-left:3px solid var(--ok); color:var(--ink); background:var(--ok-bg); border-radius:0 6px 6px 0; }}
+a {{ color:var(--link); overflow-wrap:anywhere; }} .src, .reason, .trace {{ margin:6px 0; }} .trace {{ font-size:.9rem; }}
+footer {{ color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:14px; margin-top:24px; }}
+</style></head>
+<body><main>
+<h1>re:Invent Launch Briefing</h1>
+<p class="sub">{n_ok} confirmed, {n_no} rejected. Repeat only the confirmed items: each one is backed by an aws.amazon.com page, quoted word for word.</p>
+{cards}
+<footer>Every item passed the safety checks (pytest, tests/test_safety.py) before this page was built on {built}.
+Sources: official AWS pages saved in {snapshot}. Each item links to the LangSmith trace of the run that judged it.</footer>
+</main></body></html>
+"""
 
 
 if __name__ == "__main__":
@@ -373,5 +461,7 @@ if __name__ == "__main__":
             json.dump(record, f, indent=2, ensure_ascii=False)
         rows.append(record)
     write_results(rows)
-    print(f"Wrote {RESULTS_MD} and {len(rows)} logs in {LOG_DIR}")
+    print(f"Wrote {os.path.relpath(RESULTS_MD, ROOT)} and {len(rows)} logs in {os.path.relpath(LOG_DIR, ROOT)}")
     build_lists()
+    run_safety_tests()
+    build_page()

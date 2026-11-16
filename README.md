@@ -59,3 +59,13 @@ The rumours are read from `data/aws_reinvent_candidate_items.csv`, the candidate
 ## Stage 5: safety gate
 
 At the end of `pipeline.py` the lead sorts the results into confirmed and rejected lists (`briefing_lists.json`). `tests/test_safety.py` checks both lists (`python -m pytest`), and the pipeline stops before writing the lists if either check fails. [checks.md](checks.md) holds a passing run and a stopped run with one planted bad item (a confirmed item citing a blog URL), since removed.
+
+## Final: live briefing
+
+**Live briefing page:** https://thehephaistos.github.io/check-claim/briefing.html
+
+Built by `pipeline.py` from `data/aws_reinvent_candidate_items_holdout.csv` (the 3 November 2025 batch), checked against `data/aws_official_source_snapshot_refresh.json`. The page only shows items that passed the safety gate and `tests/test_safety.py`; each item has its badge, its AWS link and quote (confirmed) or reason (rejected), and its public LangSmith trace.
+
+- [final/run_output.txt](final/run_output.txt): the final run's output; the safety checks pass before the line that builds `briefing.html`.
+- [final/results.md](final/results.md), `final/logs/`, `final/briefing_lists.json`: the final run's results, per-claim logs and lists.
+- [spotcheck.md](spotcheck.md): one row per confirmed item, naming the exact words on the AWS page that back each fact.

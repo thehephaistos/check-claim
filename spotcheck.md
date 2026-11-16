@@ -24,9 +24,9 @@ Each link on the live briefing was opened logged out (no cookies, no LangSmith k
 
 | Link | URL | Checked at | Result |
 |---|---|---|---|
-| Live briefing | https://thehephaistos.github.io/check-claim/briefing.html | 2026-11-16 11:54:14 UTC | Loads; identical to `briefing.html` in the repo: yes |
-| RIV-HO-01 trace | https://smith.langchain.com/public/1a855b16-7562-471c-8021-dfc4bd456d4b/r | 2026-11-16 11:54:16 UTC | Page 200; run `pipeline RIV-HO-01` loads without login, verdict confirmed, matches the Confirmed badge: yes |
-| RIV-HO-02 trace | https://smith.langchain.com/public/09864277-9331-4e3f-80fd-d2108b425fee/r | 2026-11-16 11:54:18 UTC | Page 200; run `pipeline RIV-HO-02` loads without login, verdict confirmed, matches the Confirmed badge: yes |
-| RIV-HO-03 trace | https://smith.langchain.com/public/cc9974ab-3a76-4307-a6ac-97fab51f05d5/r | 2026-11-16 11:54:20 UTC | Page 200; run `pipeline RIV-HO-03` loads without login, verdict confirmed, matches the Confirmed badge: yes |
-| RIV-HO-04 trace | https://smith.langchain.com/public/58aebd24-9d58-45ca-828d-3a3eb9c64fc3/r | 2026-11-16 11:54:22 UTC | Page 200; run `pipeline RIV-HO-04` loads without login, verdict rejected, matches the Rejected badge: yes |
-| RIV-HO-05 trace | https://smith.langchain.com/public/ab3c5b29-a964-499e-8882-6419947c1e14/r | 2026-11-16 11:54:24 UTC | Page 200; run `pipeline RIV-HO-05` loads without login, verdict rejected, matches the Rejected badge: yes |
+| Live briefing | https://thehephaistos.github.io/check-claim/briefing.html | 2026-11-16 11:58:13 UTC | Loads; identical to `briefing.html` in the repo: yes |
+| RIV-HO-01 trace | https://smith.langchain.com/public/fae79afc-04a7-4ff8-aeed-092dc1ed41f7/r | 2026-11-16 11:58:14 UTC | Page 200; run `pipeline RIV-HO-01` loads without login, verdict confirmed, matches the Confirmed badge: yes |
+| RIV-HO-02 trace | https://smith.langchain.com/public/eefce80a-4e66-4fb3-91f1-70ebd08789a3/r | 2026-11-16 11:58:17 UTC | Page 200; run `pipeline RIV-HO-02` loads without login, verdict confirmed, matches the Confirmed badge: yes |
+| RIV-HO-03 trace | https://smith.langchain.com/public/453031d0-c17d-464a-b4ec-78a44c78b10c/r | 2026-11-16 11:58:18 UTC | Page 200; run `pipeline RIV-HO-03` loads without login, verdict confirmed, matches the Confirmed badge: yes |
+| RIV-HO-04 trace | https://smith.langchain.com/public/1f529274-fb29-4120-bf9c-d4c7b435c618/r | 2026-11-16 11:58:20 UTC | Page 200; run `pipeline RIV-HO-04` loads without login, verdict rejected, matches the Rejected badge: yes |
+| RIV-HO-05 trace | https://smith.langchain.com/public/86981086-1128-4527-b31e-c3323573c5cd/r | 2026-11-16 11:58:23 UTC | Page 200; run `pipeline RIV-HO-05` loads without login, verdict rejected, matches the Rejected badge: yes |

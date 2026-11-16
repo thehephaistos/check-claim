@@ -54,6 +54,13 @@ client = wrap_openai(
 )
 
 
+def say(text=""):
+    """Print each line with a UTC timestamp, so the saved run output proves the order of steps."""
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+    for line in str(text).splitlines() or [""]:
+        print(f"[{stamp}] {line}", flush=True)
+
+
 def load_candidates():
     with open(CANDIDATES_CSV, encoding="utf-8-sig", newline="") as f:
         return {row["candidate_id"]: row for row in csv.DictReader(f)}
@@ -347,23 +354,23 @@ def build_lists():
     confirmed, rejected = sort_results(load_records())
     problems = check_confirmed(confirmed) + check_rejected(rejected)
     if problems:
-        print("STOPPED: safety gate failed; briefing lists not written.")
+        say("STOPPED: safety gate failed; briefing lists not written.")
         for p in problems:
-            print(f"  - {p}")
+            say(f"  - {p}")
         sys.exit(1)
     with open(LISTS_JSON, "w", encoding="utf-8") as f:
         json.dump({"confirmed": confirmed, "rejected": rejected}, f, indent=2, ensure_ascii=False)
-    print(f"PASSED: safety gate; {len(confirmed)} confirmed, {len(rejected)} rejected -> {os.path.relpath(LISTS_JSON, ROOT)}")
+    say(f"PASSED: safety gate; {len(confirmed)} confirmed, {len(rejected)} rejected -> {os.path.relpath(LISTS_JSON, ROOT)}")
 
 
 def run_safety_tests():
     """Run the pytest safety checks; stop before the page is built if any fails."""
-    print("$ python -m pytest tests/test_safety.py -v")
+    say("$ python -m pytest tests/test_safety.py -v")
     test = subprocess.run([sys.executable, "-m", "pytest", "tests/test_safety.py", "-v", "-p", "no:warnings"],
                           cwd=ROOT, capture_output=True, text=True)
-    print("\n".join(l for l in test.stdout.splitlines() if "::" in l or "passed" in l or "failed" in l))
+    say("\n".join(l for l in test.stdout.splitlines() if "::" in l or "passed" in l or "failed" in l))
     if test.returncode != 0:
-        print("STOPPED: safety checks failed; briefing.html not built.")
+        say("STOPPED: safety checks failed; briefing.html not built.")
         sys.exit(1)
 
 
@@ -392,13 +399,13 @@ def build_page():
             f'<span class="id">{esc(i["candidate_id"])}</span></header>'
             f'<p class="claim">{esc(i["claim"])}</p>{body}'
             f'<p class="trace"><a href="{esc(i["trace_url"])}">How this was judged (LangSmith trace)</a></p></article>')
-    built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     n_ok = len(lists["confirmed"])
     html = PAGE_TEMPLATE.format(cards="\n".join(cards), built=built, n_ok=n_ok,
                                 n_no=len(items) - n_ok, snapshot=esc(os.path.basename(SNAPSHOT_JSON)))
     with open(BRIEFING_HTML, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"Built {os.path.relpath(BRIEFING_HTML, ROOT)}: {len(items)} items ({n_ok} confirmed, {len(items) - n_ok} rejected)")
+    say(f"Built {os.path.relpath(BRIEFING_HTML, ROOT)}: {len(items)} items ({n_ok} confirmed, {len(items) - n_ok} rejected)")
 
 
 def esc(text):
@@ -429,7 +436,7 @@ footer {{ color:var(--muted); font-size:.85rem; border-top:1px solid var(--line)
 <h1>re:Invent Launch Briefing</h1>
 <p class="sub">{n_ok} confirmed, {n_no} rejected. Repeat only the confirmed items: each one is backed by an aws.amazon.com page, quoted word for word.</p>
 {cards}
-<footer>Every item passed the safety checks (pytest, tests/test_safety.py) before this page was built on {built}.
+<footer>Built {built}. The safety checks are not vouched for by this page: the timestamped <a href="https://github.com/thehephaistos/check-claim/blob/main/final/run_output.txt">run output</a> shows pytest passing before the line that builds this page.
 Sources: official AWS pages saved in {snapshot}. Each item links to the LangSmith trace of the run that judged it.</footer>
 </main></body></html>
 """
@@ -448,7 +455,7 @@ if __name__ == "__main__":
         state = app.invoke({"candidate_id": cid, "log": []},
                            config={"run_id": run_id, "run_name": f"pipeline {cid}", "tags": [cid]})
         runs.append((cid, run_id, started, state))
-        print(f"{cid}: {state['checks'].get('verdict')} | page {state['evidence']['page_id']} | "
+        say(f"{cid}: {state['checks'].get('verdict')} | page {state['evidence']['page_id']} | "
               f"quotes match: {state['quote_check']['all_quotes_match']}")
 
     wait_for_all_tracers()
@@ -461,7 +468,7 @@ if __name__ == "__main__":
             json.dump(record, f, indent=2, ensure_ascii=False)
         rows.append(record)
     write_results(rows)
-    print(f"Wrote {os.path.relpath(RESULTS_MD, ROOT)} and {len(rows)} logs in {os.path.relpath(LOG_DIR, ROOT)}")
+    say(f"Wrote {os.path.relpath(RESULTS_MD, ROOT)} and {len(rows)} logs in {os.path.relpath(LOG_DIR, ROOT)}")
     build_lists()
     run_safety_tests()
     build_page()

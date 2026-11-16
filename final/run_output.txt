@@ -1,12 +1,12 @@
-RIV-HO-01: confirmed | page AWSPG-R07 | quotes match: True
-RIV-HO-02: confirmed | page AWSPG-R08 | quotes match: True
-RIV-HO-03: confirmed | page AWSPG-R09 | quotes match: True
-RIV-HO-04: rejected | page AWSPG-R04 | quotes match: True
-RIV-HO-05: rejected | page no match | quotes match: no match
-Wrote final/results.md and 5 logs in final/logs
-PASSED: safety gate; 3 confirmed, 2 rejected -> final/briefing_lists.json
-$ python -m pytest tests/test_safety.py -v
-tests/test_safety.py::test_confirmed_list PASSED                         [ 50%]
-tests/test_safety.py::test_rejected_list PASSED                          [100%]
-============================== 2 passed in 0.54s ===============================
-Built briefing.html: 5 items (3 confirmed, 2 rejected)
+[2026-11-16T11:27:06.425Z] RIV-HO-01: confirmed | page AWSPG-R07 | quotes match: True
+[2026-11-16T11:27:12.056Z] RIV-HO-02: confirmed | page AWSPG-R08 | quotes match: True
+[2026-11-16T11:27:15.995Z] RIV-HO-03: confirmed | page AWSPG-R09 | quotes match: True
+[2026-11-16T11:27:22.041Z] RIV-HO-04: rejected | page AWSPG-R04 | quotes match: True
+[2026-11-16T11:27:25.473Z] RIV-HO-05: rejected | page no match | quotes match: no match
+[2026-11-16T11:27:31.794Z] Wrote final/results.md and 5 logs in final/logs
+[2026-11-16T11:27:31.795Z] PASSED: safety gate; 3 confirmed, 2 rejected -> final/briefing_lists.json
+[2026-11-16T11:27:31.795Z] $ python -m pytest tests/test_safety.py -v
+[2026-11-16T11:27:33.026Z] tests/test_safety.py::test_confirmed_list PASSED                         [ 50%]
+[2026-11-16T11:27:33.026Z] tests/test_safety.py::test_rejected_list PASSED                          [100%]
+[2026-11-16T11:27:33.026Z] ============================== 2 passed in 0.52s ===============================
+[2026-11-16T11:27:33.027Z] Built briefing.html: 5 items (3 confirmed, 2 rejected)

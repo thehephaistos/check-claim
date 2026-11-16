@@ -1,9 +1,9 @@
 {
   "candidate_id": "RIV-HO-05",
   "model": "anthropic/claude-haiku-5.5",
-  "run_id": "8086f323-b19a-4b9c-8925-16825210d69c",
-  "started_at": "2026-11-16T11:21:31.162186+00:00",
-  "trace_url": "https://smith.langchain.com/public/7baecc98-7bdf-41db-96eb-423e19ae2085/r",
+  "run_id": "4256c015-6039-4cf2-be03-74b3a2ac1e8a",
+  "started_at": "2026-11-16T11:27:22.041486+00:00",
+  "trace_url": "https://smith.langchain.com/public/e1ab6e59-060a-4628-9c65-d25e499f9663/r",
   "claim": {
     "candidate_id": "RIV-HO-05",
     "claim_text": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
@@ -14,7 +14,7 @@
     "url": "no match",
     "captured_at": "no match",
     "quotes": [],
-    "why_this_page": "The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout."
+    "why_this_page": "The only AWS Lambda page (AWSPG-R06) covers a payload size increase from 256 KB to 1 MB for asynchronous invocations, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a timeout change or re:Invent 2025 rollout."
   },
   "quote_check": {
     "all_quotes_match": "no match",
@@ -66,13 +66,13 @@
         "url": "no match",
         "captured_at": "no match",
         "quotes": [],
-        "why_this_page": "The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout."
+        "why_this_page": "The only AWS Lambda page (AWSPG-R06) covers a payload size increase from 256 KB to 1 MB for asynchronous invocations, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a timeout change or re:Invent 2025 rollout."
       },
       "quote_check_by_code": {
         "all_quotes_match": "no match",
         "quotes": []
       },
-      "raw_model_reply": "{\"page_id\": \"no match\", \"url\": \"no match\", \"captured_at\": \"no match\", \"quotes\": [], \"why_this_page\": \"The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout.\"}"
+      "raw_model_reply": "{\"page_id\": \"no match\", \"url\": \"no match\", \"captured_at\": \"no match\", \"quotes\": [], \"why_this_page\": \"The only AWS Lambda page (AWSPG-R06) covers a payload size increase from 256 KB to 1 MB for asynchronous invocations, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a timeout change or re:Invent 2025 rollout.\"}"
     },
     {
       "node": "fact_checker",
@@ -87,7 +87,7 @@
           "url": "no match",
           "captured_at": "no match",
           "quotes": [],
-          "why_this_page": "The only AWS Lambda page in the snapshot (AWSPG-R06) covers a payload-size increase for asynchronous invocations from 256 KB to 1 MB, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a Lambda timeout."
+          "why_this_page": "The only AWS Lambda page (AWSPG-R06) covers a payload size increase from 256 KB to 1 MB for asynchronous invocations, not a maximum function timeout change from 15 to 60 minutes, and no snapshot page mentions a timeout change or re:Invent 2025 rollout."
         }
       },
       "rule_file": "confirm_rule.md",

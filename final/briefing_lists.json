@@ -7,7 +7,7 @@
       "quotes": [
         "Amazon Quick Suite is now generally available, giving business users one agentic workspace for research, business intelligence and workflow automation."
       ],
-      "trace_url": "https://smith.langchain.com/public/4d270e78-526b-4462-9ad9-2cbb6a03a583/r"
+      "trace_url": "https://smith.langchain.com/public/e2540b01-ec05-42f4-b9f5-5eef4943383b/r"
     },
     {
       "candidate_id": "RIV-HO-02",
@@ -16,7 +16,7 @@
       "quotes": [
         "Anthropic's Claude Sonnet 4.5 is now available in Amazon Bedrock, with support for long-running agent tasks and complex coding workloads for enterprise builders."
       ],
-      "trace_url": "https://smith.langchain.com/public/443ab70e-25c1-450a-8de6-00826dd64f44/r"
+      "trace_url": "https://smith.langchain.com/public/b1d2eb35-1cf3-4437-91a1-cb764632c122/r"
     },
     {
       "candidate_id": "RIV-HO-03",
@@ -25,21 +25,21 @@
       "quotes": [
         "Starting July 15, 2025, new AWS customers receive $100 in AWS Free Tier credits at sign-up and can earn up to $100 more by exploring key AWS services."
       ],
-      "trace_url": "https://smith.langchain.com/public/f116edd7-083f-4cfe-abf8-77267f562071/r"
+      "trace_url": "https://smith.langchain.com/public/2c329fc6-ef50-40ad-ba39-a8f22ed3a61d/r"
     }
   ],
   "rejected": [
     {
       "candidate_id": "RIV-HO-04",
       "claim": "Amazon S3 Vectors is now generally available in all commercial AWS Regions, offering native vector storage and similarity query support for AI workloads.",
-      "reason": "Check 3 failed: Not backed by any quote: status is now generally available. quote 2 says S3 Vectors is in preview, a different status",
-      "trace_url": "https://smith.langchain.com/public/eb3dd5e1-1e18-4005-a436-cc775eec62f4/r"
+      "reason": "Check 3 failed: Not backed by any quote: is now generally available (GA status). quote 2 says preview, a different status",
+      "trace_url": "https://smith.langchain.com/public/12bb6e82-04fc-44df-8cf4-e1f1d0de8a53/r"
     },
     {
       "candidate_id": "RIV-HO-05",
       "claim": "AWS Lambda is raising the maximum function timeout from 15 minutes to 60 minutes for all runtimes, rolling out to every Region before re:Invent 2025.",
       "reason": "Check 1 failed: No snapshot page was cited (page_id: no match).",
-      "trace_url": "https://smith.langchain.com/public/7baecc98-7bdf-41db-96eb-423e19ae2085/r"
+      "trace_url": "https://smith.langchain.com/public/e1ab6e59-060a-4628-9c65-d25e499f9663/r"
     }
   ]
 }
